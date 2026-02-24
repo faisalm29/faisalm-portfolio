@@ -1,0 +1,17 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro";
+import { getCollection } from "astro:content";
+
+const fundraisingCampaigns = await getCollection("fundraisingCampaign");
+---
+
+<MainLayout>
+  <h1>All Fundraising Campaigns</h1>
+  <ul>
+    {
+      fundraisingCampaigns.map((fundraisingCampaign) => (
+        <li>{fundraisingCampaign.data.title}</li>
+      ))
+    }
+  </ul>
+</MainLayout>

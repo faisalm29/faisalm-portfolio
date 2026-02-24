@@ -1,0 +1,31 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import type { CollectionEntry } from "astro:content";
+import { cn } from "@/lib/utils";
+
+interface Props extends HTMLAttributes<"li"> {
+  certification: CollectionEntry<"certifications">;
+}
+
+const { certification, class: className, ...props } = Astro.props;
+---
+
+<li {...props} class={cn(className)}>
+  <h2>
+    {certification.data.institution}
+    {
+      certification.data.mayExpire ? (
+        <span>
+          ({certification.data.acquiredDate} -{" "}
+          {certification.data.expirationDate})
+        </span>
+      ) : (
+        <span>(No expiration date)</span>
+      )
+    }
+  </h2>
+  <div>
+    <p>{certification.data.name}</p>
+    <a href={certification.data.credential}>Credential</a>
+  </div>
+</li>

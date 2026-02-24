@@ -1,0 +1,30 @@
+---
+import { Icon } from "astro-icon/components";
+
+const contacts = [
+  {
+    name: "Email",
+    icon: "mail",
+    url: "mailto:faisal.muhammad2911@gmail.com",
+  },
+  {
+    name: "LinkedIn",
+    icon: "linkedin",
+    url: "https://www.linkedin.com/in/faisal-muhammad-537741175",
+  },
+];
+---
+
+<section>
+  <ul>
+    {
+      contacts.map((contact) => (
+        <li>
+          <a href={contact.url} target="_blank">
+            <Icon name={contact.icon} />
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</section>

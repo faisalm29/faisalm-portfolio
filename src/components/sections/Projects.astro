@@ -1,0 +1,18 @@
+---
+import ProjectItem from "../ProjectItem.astro";
+import type { CollectionEntry } from "astro:content";
+import type { HTMLAttributes } from "astro/types";
+import { cn } from "@/lib/utils";
+
+interface Props extends HTMLAttributes<"section"> {
+  projects: CollectionEntry<"projects">[];
+}
+
+const { projects, class: className, ...props } = Astro.props;
+---
+
+<section {...props} class={cn("", className)}>
+  <ul>
+    {projects.map((project) => <ProjectItem project={project} />)}
+  </ul>
+</section>

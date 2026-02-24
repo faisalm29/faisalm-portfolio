@@ -1,0 +1,16 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import type { CollectionEntry } from "astro:content";
+import { cn } from "@/lib/utils";
+
+interface Props extends HTMLAttributes<"li"> {
+  skill: CollectionEntry<"skills">;
+}
+
+const { skill, class: className, ...props } = Astro.props;
+const { name } = skill.data;
+---
+
+<li {...props} class={cn(className)}>
+  {name}
+</li>

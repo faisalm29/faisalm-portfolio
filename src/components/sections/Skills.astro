@@ -1,0 +1,18 @@
+---
+import SkillItem from "../SkillItem.astro";
+import type { HTMLAttributes } from "astro/types";
+import type { CollectionEntry } from "astro:content";
+import { cn } from "@/lib/utils";
+
+interface Props extends HTMLAttributes<"section"> {
+  skills: CollectionEntry<"skills">[];
+}
+
+const { skills, class: className, ...props } = Astro.props;
+---
+
+<section {...props} class={cn(className)}>
+  <ul>
+    {skills.map((skill) => <SkillItem skill={skill} />)}
+  </ul>
+</section>

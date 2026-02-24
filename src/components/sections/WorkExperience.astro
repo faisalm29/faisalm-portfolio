@@ -1,0 +1,22 @@
+---
+import WorkExperienceItem from "../WorkExperienceItem.astro";
+import type { CollectionEntry } from "astro:content";
+import type { HTMLAttributes } from "astro/types";
+import { cn } from "@/lib/utils";
+
+interface Props extends HTMLAttributes<"section"> {
+  allWorkExperience: CollectionEntry<"workExperience">[];
+}
+
+const { class: className, allWorkExperience, ...props } = Astro.props;
+---
+
+<section {...props} class={cn("", className)}>
+  <ul>
+    {
+      allWorkExperience.map((workExperience) => (
+        <WorkExperienceItem workExperience={workExperience} />
+      ))
+    }
+  </ul>
+</section>

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "institution1-year",
+    "startDate": "from",
+    "endDate": "until",
+    "institution": "Institutuion Name",
+    "major": "Major",
+    "additionalInfo": "Some additional info",
+    "url": "institution website"
+  },
+  {
+    "id": "institution2-year",
+    "startDate": "from",
+    "endDate": "until",
+    "institution": "Institutuion Name",
+    "major": "Major",
+    "additionalInfo": "Some additional info",
+    "url": "institution website"
+  }
+]

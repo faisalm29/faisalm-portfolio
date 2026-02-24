@@ -1,0 +1,29 @@
+[
+  {
+    "id": "name1-institution-year",
+    "mayExpire": true,
+    "acquiredDate": "Acquired date",
+    "expirationDate": "Expiration date",
+    "institution": "Institution Name",
+    "name": "Certification Name",
+    "credential": "credential link"
+  },
+  {
+    "id": "name2-institution-year",
+    "mayExpire": true,
+    "acquiredDate": "Acquired date",
+    "expirationDate": "Expiration date",
+    "institution": "Institution Name",
+    "name": "Certification Name",
+    "credential": "credential link"
+  },
+  {
+    "id": "name3-institution-year",
+    "mayExpire": true,
+    "acquiredDate": "Acquired date",
+    "expirationDate": "Expiration date",
+    "institution": "Institution Name",
+    "name": "Certification Name",
+    "credential": "credential link"
+  }
+]

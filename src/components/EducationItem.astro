@@ -1,0 +1,26 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import type { CollectionEntry } from "astro:content";
+import { cn } from "@/lib/utils";
+
+interface Props extends HTMLAttributes<"li"> {
+  education: CollectionEntry<"education">;
+}
+
+const { education, class: className, ...props } = Astro.props;
+---
+
+<li {...props} class={cn("", className)}>
+  <h2>
+    <span>{education.data.institution}</span>
+    <span>{education.data.startDate} - {education.data.endDate}</span>
+  </h2>
+  <p>
+    {education.data.major}
+    {
+      education.data.additionalInfo && (
+        <span>- {education.data.additionalInfo}</span>
+      )
+    }
+  </p>
+</li>

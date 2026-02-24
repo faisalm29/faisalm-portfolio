@@ -1,0 +1,42 @@
+[
+  {
+    "id": "role-company1-year",
+    "startDate": "from",
+    "endDate": "until",
+    "role": "Role",
+    "company": "Company",
+    "description": "Some meaningful description.",
+    "skills": ["skill 1", "skill 2", "skill 3", "skill 4"],
+    "url": "https://mfaisal.xyz"
+  },
+  {
+    "id": "role-company2-year",
+    "startDate": "from",
+    "endDate": "until",
+    "role": "Role",
+    "company": "Company",
+    "description": "Some meaningful description.",
+    "skills": ["skill 1", "skill 2", "skill 3", "skill 4"],
+    "url": "https://mfaisal.xyz"
+  },
+  {
+    "id": "role-company3-year",
+    "startDate": "from",
+    "endDate": "until",
+    "role": "Role",
+    "company": "Company",
+    "description": "Some meaningful description.",
+    "skills": ["skill 1", "skill 2", "skill 3", "skill 4"],
+    "url": "https://mfaisal.xyz"
+  },
+  {
+    "id": "role-company4-year",
+    "startDate": "from",
+    "endDate": "until",
+    "role": "Role",
+    "company": "Company",
+    "description": "Some meaningful description.",
+    "skills": ["skill 1", "skill 2", "skill 3", "skill 4"],
+    "url": "https://mfaisal.xyz"
+  }
+]

@@ -1,0 +1,16 @@
+[
+  {
+    "id": "name1-role-year",
+    "name": "Project Name",
+    "description": "Some impactful description",
+    "skills": ["skill 1", "skill 2", "skill 3", "skill 4"],
+    "url": "https://mfaisal.xyz"
+  },
+  {
+    "id": "name2-role-year",
+    "name": "Project Name",
+    "description": "Some impactful description",
+    "skills": ["skill 1", "skill 2", "skill 3", "skill 4"],
+    "url": "https://mfaisal.xyz"
+  }
+]

@@ -1,0 +1,22 @@
+---
+import CertificationItem from "../CertificationItem.astro";
+import type { HTMLAttributes } from "astro/types";
+import type { CollectionEntry } from "astro:content";
+import { cn } from "@/lib/utils";
+
+interface Props extends HTMLAttributes<"section"> {
+  certifications: CollectionEntry<"certifications">[];
+}
+
+const { certifications, class: className, ...props } = Astro.props;
+---
+
+<section {...props} class={cn(className)}>
+  <ul>
+    {
+      certifications.map((certification) => (
+        <CertificationItem certification={certification} />
+      ))
+    }
+  </ul>
+</section>

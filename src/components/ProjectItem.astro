@@ -1,0 +1,37 @@
+---
+import type { CollectionEntry } from "astro:content";
+import type { HTMLAttributes } from "astro/types";
+import { cn } from "@/lib/utils";
+import { Image } from "astro:assets";
+
+interface Props extends HTMLAttributes<"div"> {
+  project: CollectionEntry<"projects">;
+}
+
+const { project, class: className, ...props } = Astro.props;
+---
+
+<div {...props} class={cn("", className)}>
+  <h2>{project.data.name}</h2>
+  <p>{project.data.description}</p>
+  {
+    project.data.skills && (
+      <ul>
+        {project.data.skills.map((skill) => (
+          <li>{skill}</li>
+        ))}
+      </ul>
+    )
+  }
+  {
+    project.data.thumbnail && (
+      <Image
+        src={project.data.thumbnail}
+        alt={`${project.data.name} project's image`}
+        layout="constrained"
+        format="webp"
+        class="h-full w-full object-cover object-center"
+      />
+    )
+  }
+</div>

@@ -1,0 +1,20 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro";
+import InstagramContentFrame from "@/components/InstagramContentFrame.astro";
+import { getCollection } from "astro:content";
+
+const socialMediaContents = await getCollection("socialMediaContent");
+---
+
+<MainLayout>
+  <h1>All Social Media Contents</h1>
+  <ul>
+    {
+      socialMediaContents.map((socialMediaContent) => (
+        <li>
+          <InstagramContentFrame contentId={socialMediaContent.data.id} />
+        </li>
+      ))
+    }
+  </ul>
+</MainLayout>

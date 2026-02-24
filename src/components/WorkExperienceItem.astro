@@ -1,0 +1,32 @@
+---
+import { Icon } from "astro-icon/components";
+import type { HTMLAttributes } from "astro/types";
+import type { CollectionEntry } from "astro:content";
+import { cn } from "@/lib/utils";
+
+interface Props extends HTMLAttributes<"div"> {
+  workExperience: CollectionEntry<"workExperience">;
+}
+
+const { workExperience, class: className, ...props } = Astro.props;
+---
+
+<div {...props} class={cn("", className)}>
+  <div>
+    <p>{workExperience.data.startDate}</p>
+    -
+    <p>{workExperience.data.endDate}</p>
+  </div>
+  <div>
+    <h2>
+      <span>{workExperience.data.role}</span>
+      •
+      <span>{workExperience.data.company}</span>
+    </h2>
+    <Icon name="arrow-up-right" />
+  </div>
+  <p>{workExperience.data.description}</p>
+  <ul>
+    {workExperience.data.skills.map((skill) => <li>{skill}</li>)}
+  </ul>
+</div>
