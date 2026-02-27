@@ -8,6 +8,14 @@ const pressReleases = await getCollection("pressRelease");
 <MainLayout>
   <h1>All Press Releases</h1>
   <ul>
-    {pressReleases.map((pressRelease) => <li>{pressRelease.data.title}</li>)}
+    {
+      pressReleases.map((pressRelease) => (
+        <li>
+          <a href={`/press-releases/${pressRelease.id}`}>
+            {pressRelease.data.title}
+          </a>
+        </li>
+      ))
+    }
   </ul>
 </MainLayout>

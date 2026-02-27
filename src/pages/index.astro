@@ -9,6 +9,7 @@ import Projects from "@/components/sections/Projects.astro";
 import Education from "@/components/sections/Education.astro";
 import Certifications from "@/components/sections/Certifications.astro";
 import Skills from "@/components/sections/Skills.astro";
+import { Articles } from "@/components/sections/Articles";
 import { getCollection } from "astro:content";
 
 const allWorkExperience = await getCollection("workExperience");
@@ -16,6 +17,7 @@ const projects = await getCollection("projects");
 const allEducation = await getCollection("education");
 const certifications = await getCollection("certifications");
 const skills = await getCollection("skills");
+const articles = await getCollection("article");
 ---
 
 <MainLayout>
@@ -31,5 +33,6 @@ const skills = await getCollection("skills");
     <Education allEducation={allEducation} />
     <Certifications certifications={certifications} />
     <Skills skills={skills} />
+    <Articles articles={articles} />
   </div>
 </MainLayout>

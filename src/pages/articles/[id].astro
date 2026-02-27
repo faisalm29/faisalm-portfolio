@@ -1,0 +1,86 @@
+---
+import ArticleLayout from "@/layouts/ArticleLayout.astro";
+import { getCollection, render } from "astro:content";
+import { Image } from "astro:assets";
+import { formatDate } from "@/lib/utils";
+import { Icon } from "astro-icon/components";
+import { getImage } from "astro:assets";
+
+export const getStaticPaths = async () => {
+  const articles = await getCollection("article", ({ data }) => {
+    return import.meta.env.PROD ? data.draft !== true : true;
+  });
+  return articles.map((article) => ({
+    params: { id: article.id },
+    props: { article },
+  }));
+};
+
+const { article } = Astro.props;
+const { title, description, thumbnail, publishedDate, categories } =
+  article.data;
+const { Content } = await render(article);
+
+let ogImageURL: string;
+if (article.data.thumbnail) {
+  const thumbnail = await getImage({
+    src: article.data.thumbnail,
+    format: "jpeg",
+  });
+  ogImageURL = new URL(thumbnail.src, Astro.url.origin).href;
+} else {
+  ogImageURL = new URL("/og-article-default.jpg", Astro.url.origin).href;
+}
+---
+
+<ArticleLayout
+  title={title}
+  description={description}
+  openGraph={{
+    basic: {
+      image: ogImageURL,
+      title: title,
+      type: "article",
+    },
+    image: {
+      alt: `${title} post's thumbnail`,
+    },
+    article: {
+      publishedTime: publishedDate.toISOString(),
+      authors: ["Faisal Muhammad"],
+      section: "Articles",
+      tags: categories,
+    },
+  }}
+>
+  <article class="flex flex-col space-y-6">
+    <div class="flex flex-col space-y-8">
+      {
+        thumbnail && (
+          <div class="relative aspect-2/1 w-full overflow-hidden rounded-md">
+            <Image
+              src={thumbnail}
+              alt={title}
+              layout="constrained"
+              class="h-full w-full object-cover object-center"
+            />
+          </div>
+        )
+      }
+
+      <div class="flex items-center gap-2">
+        <Icon name="calendar" size={16} class="text-muted-foreground" />
+        <time class="text-muted-foreground text-sm">
+          {formatDate(publishedDate)}
+        </time>
+      </div>
+
+      <h1 class="text-2xl font-semibold">{title}</h1>
+    </div>
+    <div
+      class="prose text-muted-foreground dark:prose-invert max-w-full leading-relaxed text-pretty"
+    >
+      <Content />
+    </div>
+  </article>
+</ArticleLayout>

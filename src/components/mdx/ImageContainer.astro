@@ -1,0 +1,10 @@
+---
+import { Image } from "astro:assets";
+import type { RemoteImageProps } from "astro:assets";
+
+type Props = RemoteImageProps;
+
+const { src, alt, ...props } = Astro.props;
+---
+
+<Image src={src} alt={alt} {...props} inferSize class="rounded-md" />

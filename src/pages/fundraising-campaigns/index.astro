@@ -10,7 +10,11 @@ const fundraisingCampaigns = await getCollection("fundraisingCampaign");
   <ul>
     {
       fundraisingCampaigns.map((fundraisingCampaign) => (
-        <li>{fundraisingCampaign.data.title}</li>
+        <li>
+          <a href={`/fundraising-campaigns/${fundraisingCampaign.id}`}>
+            {fundraisingCampaign.data.title}
+          </a>
+        </li>
       ))
     }
   </ul>

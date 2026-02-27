@@ -1,0 +1,115 @@
+---
+import ArticleLayout from "@/layouts/ArticleLayout.astro";
+import { getCollection, render } from "astro:content";
+import { Image } from "astro:assets";
+import { formatDate } from "@/lib/utils";
+import { Icon } from "astro-icon/components";
+import { getImage } from "astro:assets";
+import ImageContainer from "@/components/mdx/ImageContainer.astro";
+
+export const getStaticPaths = async () => {
+  const fundraisingCampaigns = await getCollection(
+    "fundraisingCampaign",
+    ({ data }) => {
+      return import.meta.env.PROD ? data.draft !== true : true;
+    },
+  );
+  return fundraisingCampaigns.map((fundraisingCampaign) => ({
+    params: { id: fundraisingCampaign.id },
+    props: { fundraisingCampaign },
+  }));
+};
+
+const { fundraisingCampaign } = Astro.props;
+const {
+  title,
+  description,
+  thumbnail,
+  publishedDate,
+  categories,
+  totalDonation,
+  source,
+} = fundraisingCampaign.data;
+const { Content } = await render(fundraisingCampaign);
+
+let ogImageURL: string;
+if (fundraisingCampaign.data.thumbnail) {
+  const thumbnail = await getImage({
+    src: fundraisingCampaign.data.thumbnail,
+    format: "jpeg",
+    width: 200,
+    height: 100,
+  });
+  ogImageURL = new URL(thumbnail.src, Astro.url.origin).href;
+} else {
+  ogImageURL = new URL("/og-fundraising-campaign-default.jpg", Astro.url.origin)
+    .href;
+}
+---
+
+<ArticleLayout
+  title={title}
+  description={description}
+  openGraph={{
+    basic: {
+      image: ogImageURL,
+      title: title,
+      type: "article",
+    },
+    image: {
+      alt: `${title} post's thumbnail`,
+    },
+    article: {
+      publishedTime: publishedDate.toISOString(),
+      authors: ["Faisal Muhammad"],
+      section: "Fundraising Campaigns",
+      tags: categories,
+    },
+  }}
+>
+  <article class="flex flex-col space-y-6">
+    <div class="flex flex-col space-y-8">
+      <div class="border-border bg-accent/50 rounded-md border p-4">
+        <div class="flex flex-col space-y-8">
+          {
+            thumbnail && (
+              <Image
+                src={thumbnail}
+                alt={`${title}'s movie poster`}
+                sizes="100vw"
+                width={200}
+                height={100}
+                class="mx-0 h-auto w-full rounded-md"
+              />
+            )
+          }
+          <div class="flex flex-col space-y-4">
+            <div>
+              <p class="font-medium">Funds raised</p>
+              <p class="text-muted-foreground">{totalDonation}</p>
+            </div>
+            <div>
+              <p class="font-medium">Originally published on</p>
+              <a
+                href={source}
+                target="_blank"
+                class="text-muted-foreground flex w-fit items-center gap-1"
+                >Insan Bumi Mandiri<Icon name="arrow-up-right" /></a
+              >
+            </div>
+            <div>
+              <p class="font-medium">Originally published at</p>
+              <p class="text-muted-foreground">{formatDate(publishedDate)}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h1 class="text-2xl font-semibold">{title}</h1>
+    </div>
+    <div
+      class="prose text-muted-foreground dark:prose-invert max-w-full leading-relaxed text-pretty"
+    >
+      <Content components={{ img: ImageContainer }} />
+    </div>
+  </article>
+</ArticleLayout>

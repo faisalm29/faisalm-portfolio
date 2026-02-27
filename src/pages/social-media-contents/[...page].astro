@@ -1,0 +1,39 @@
+---
+import InstagramContentFrame from "@/components/InstagramContentFrame.astro";
+import MainLayout from "@/layouts/MainLayout.astro";
+import type { PaginateFunction } from "astro";
+import { getCollection } from "astro:content";
+
+interface PaginateProps {
+  paginate: PaginateFunction;
+}
+
+export const getStaticPaths = async ({ paginate }: PaginateProps) => {
+  const socialMediaContents = await getCollection("socialMediaContent");
+
+  return paginate(socialMediaContents, {
+    pageSize: 5,
+  });
+};
+
+const { page } = Astro.props;
+const { data, url, currentPage, lastPage } = page;
+---
+
+<MainLayout>
+  <h1>All Social Media Contents</h1>
+  <ul>
+    {
+      data.map((socialMediaContent) => (
+        <li>
+          <InstagramContentFrame contentId={socialMediaContent.data.id} />
+        </li>
+      ))
+    }
+  </ul>
+  {url.first && currentPage > 2 && <a href={url.first}>First</a>}
+  {url.prev && <a href={url.prev}>Previous</a>}
+  <span>{currentPage}</span>
+  {url.next && currentPage < 7 && <a href={url.next}>Next</a>}
+  {url.last && <a href={url.last}>Last</a>}
+</MainLayout>

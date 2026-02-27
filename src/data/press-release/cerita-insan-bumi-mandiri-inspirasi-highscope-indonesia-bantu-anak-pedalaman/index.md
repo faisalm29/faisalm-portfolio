@@ -3,7 +3,7 @@ draft: false
 title: "Cerita Insan Bumi Mandiri Inspirasi Highscope Indonesia Bantu Anak Pedalaman"
 publishedDate: "2023-02-10"
 description: "Lewat kolaborasi dengan Highscope Indonesia ini, Insan Bumi Mandiri ingin cerita anak-anak di daerah pedalaman Indonesia bisa sampai ke kota agar meningkatkan kepedulian dan solidaritas antar sesama."
-# thumbnail: "../../assets/press-release/thumbnail-1.jpeg"
+thumbnail: "./thumbnail.jpeg"
 categories: ["Press Release", "Insan Bumi Mandiri"]
 publishedIn:
   [

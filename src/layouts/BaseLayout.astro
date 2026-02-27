@@ -1,16 +1,70 @@
 ---
 import "../styles/global.css";
+import { SEO, type SEOProps } from "astro-seo";
+import { getImage } from "astro:assets";
+import ogImage from "../../public/og-default.jpg";
+
+interface Props extends SEOProps {}
+
+const { title, description = "Default description", openGraph } = Astro.props;
+
+const defaultOgImage = await getImage({
+  src: ogImage,
+  format: "jpeg",
+});
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = new URL(
+  openGraph?.basic?.image ? openGraph.basic.image : defaultOgImage.src,
+  Astro.url.origin,
+);
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
+    <SEO
+      title={title}
+      titleTemplate="%s • Faisal Muhammad"
+      titleDefault="Faisal Muhammad"
+      description={description}
+      openGraph={{
+        basic: {
+          title: title ? title : "Faisal Muhammad",
+          type: openGraph?.basic.type ? openGraph.basic.type : "website",
+          image: ogImageURL.href,
+          url: canonicalURL,
+        },
+        optional: {
+          description: description,
+          locale: "id_ID",
+          siteName: "Faisal Muhammad",
+        },
+        image: {
+          type: "image/jpeg",
+          alt: openGraph?.image?.alt
+            ? openGraph.image.alt
+            : "Faisal Muhammad's Portfolio",
+        },
+        article: openGraph?.article ?? {},
+      }}
+      twitter={{
+        card: "summary_large_image",
+        site: "@HomesickAlienn_",
+        creator: "@HomesickAlienn_",
+        title: title ? title : "Faisal Muhammad",
+        image: ogImageURL.href,
+        imageAlt: openGraph?.image?.alt
+          ? openGraph.image.alt
+          : "Faisal Muhammad's Portfolio",
+        description: description,
+      }}
+    />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
-    <title>Astro Basics</title>
   </head>
   <body>
     <slot />

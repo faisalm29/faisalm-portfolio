@@ -1,0 +1,121 @@
+---
+import ImageContainer from "@/components/mdx/ImageContainer.astro";
+import ArticleLayout from "@/layouts/ArticleLayout.astro";
+import { formatDate } from "@/lib/utils";
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+import { getImage } from "astro:assets";
+import { render } from "astro:content";
+import { getCollection } from "astro:content";
+
+export const getStaticPaths = async () => {
+  const pressReleases = await getCollection("pressRelease", ({ data }) => {
+    return import.meta.env.PROD ? data.draft !== true : true;
+  });
+  return pressReleases.map((pressRelease) => ({
+    params: { id: pressRelease.id },
+    props: { pressRelease },
+  }));
+};
+
+const { pressRelease } = Astro.props;
+const { Content } = await render(pressRelease);
+const {
+  categories,
+  description,
+  publishedDate,
+  publishedIn,
+  title,
+  thumbnail,
+} = pressRelease.data;
+
+let ogImageURL: string;
+if (thumbnail) {
+  const thumbnailImg = await getImage({
+    src: thumbnail,
+    format: "jpeg",
+    width: 200,
+    height: 100,
+  });
+  ogImageURL = new URL(thumbnailImg.src, Astro.url.origin).href;
+} else {
+  ogImageURL = new URL("/og-press-release-default.jpg", Astro.url.origin).href;
+}
+---
+
+<ArticleLayout
+  title={title}
+  description={description}
+  openGraph={{
+    basic: {
+      image: ogImageURL,
+      title: title,
+      type: "article",
+    },
+    image: {
+      alt: `${title} post's thumbnail`,
+    },
+    article: {
+      publishedTime: publishedDate.toISOString(),
+      authors: ["Faisal Muhammad"],
+      section: "Articles",
+      tags: categories,
+    },
+  }}
+>
+  <article class="flex flex-col space-y-6">
+    <div class="flex flex-col space-y-8">
+      <div class="border-border bg-accent/50 rounded-md border p-4">
+        <div class="flex flex-col space-y-8">
+          {
+            thumbnail && (
+              <Image
+                src={thumbnail}
+                alt={`${title}'s movie poster`}
+                sizes="100vw"
+                width={200}
+                height={100}
+                class="mx-0 h-auto w-full rounded-md"
+              />
+            )
+          }
+          <div class="flex flex-col space-y-4">
+            <!-- <div>
+              <p class="font-medium">Funds raised</p>
+              <p class="text-muted-foreground">{totalDonation}</p>
+            </div> -->
+            <div>
+              <p class="font-medium">Originally published on</p>
+              <ul>
+                {
+                  publishedIn.map((source) => (
+                    <li>
+                      <a
+                        href={source.url}
+                        target="_blank"
+                        class="text-muted-foreground flex w-fit items-center gap-1"
+                      >
+                        {source.name}
+                        <Icon name="arrow-up-right" />
+                      </a>
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
+            <div>
+              <p class="font-medium">Originally published at</p>
+              <p class="text-muted-foreground">{formatDate(publishedDate)}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h1 class="text-2xl font-semibold">{title}</h1>
+    </div>
+    <div
+      class="prose text-muted-foreground dark:prose-invert max-w-full leading-relaxed text-pretty"
+    >
+      <Content components={{ img: ImageContainer }} />
+    </div>
+  </article>
+</ArticleLayout>
