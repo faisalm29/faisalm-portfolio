@@ -2,6 +2,9 @@
 import type { HTMLAttributes } from "astro/types";
 import type { CollectionEntry } from "astro:content";
 import { cn } from "@/lib/utils";
+// import { BadgeLink } from "./BadgeLink";
+import BadgeLink from "./BadgeLink.astro";
+import { Icon } from "astro-icon/components";
 
 interface Props extends HTMLAttributes<"li"> {
   certification: CollectionEntry<"certifications">;
@@ -10,7 +13,7 @@ interface Props extends HTMLAttributes<"li"> {
 const { certification, class: className, ...props } = Astro.props;
 ---
 
-<li {...props} class={cn(className)}>
+<li {...props} class={cn("flex flex-col space-y-2", className)}>
   <h2>
     {certification.data.institution}
     {
@@ -24,8 +27,12 @@ const { certification, class: className, ...props } = Astro.props;
       )
     }
   </h2>
-  <div>
+  <div class="flex items-center gap-2">
     <p>{certification.data.name}</p>
-    <a href={certification.data.credential}>Credential</a>
+    <BadgeLink
+      as="a"
+      href={certification.data.credential}
+      class="flex items-center gap-1">Credential <Icon name="link" /></BadgeLink
+    >
   </div>
 </li>

@@ -11,8 +11,14 @@ interface Props extends HTMLAttributes<"section"> {
 const { projects, class: className, ...props } = Astro.props;
 ---
 
-<section {...props} class={cn("", className)}>
-  <ul>
+<section
+  {...props}
+  id="projects"
+  data-section="projects"
+  class={cn("flex flex-col space-y-4 scroll-m-18 mb-12", className)}
+>
+  <h2 class="text-xl font-semibold">Projects</h2>
+  <ul class="flex flex-col space-y-6">
     {projects.map((project) => <ProjectItem project={project} />)}
   </ul>
 </section>

@@ -8,9 +8,10 @@ import WorkExperience from "@/components/sections/WorkExperience.astro";
 import Projects from "@/components/sections/Projects.astro";
 import Education from "@/components/sections/Education.astro";
 import Certifications from "@/components/sections/Certifications.astro";
-import Skills from "@/components/sections/Skills.astro";
-import { Articles } from "@/components/sections/Articles";
 import { getCollection } from "astro:content";
+import Works from "@/components/sections/Works.astro";
+import CustomLink from "@/components/CustomLink.astro";
+import { Icon } from "astro-icon/components";
 
 const allWorkExperience = await getCollection("workExperience");
 const projects = await getCollection("projects");
@@ -18,21 +19,41 @@ const allEducation = await getCollection("education");
 const certifications = await getCollection("certifications");
 const skills = await getCollection("skills");
 const articles = await getCollection("article");
+const socialMediaContents = (await getCollection("socialMediaContent")).slice(
+  0,
+  2,
+);
+const fundraisingCampaigns = await getCollection("fundraisingCampaign");
+const pressReleases = await getCollection("pressRelease");
 ---
 
 <MainLayout>
-  <div>
-    <Header />
-    <TableOfContents />
+  <div
+    class="flex flex-col space-y-12 lg:sticky lg:top-0 lg:max-h-screen lg:w-[42%] lg:py-18"
+  >
+    <Header skills={skills} />
+    <TableOfContents class="hidden lg:block" />
     <Contacts />
   </div>
-  <div>
-    <About />
-    <WorkExperience allWorkExperience={allWorkExperience} />
-    <Projects projects={projects} />
-    <Education allEducation={allEducation} />
-    <Certifications certifications={certifications} />
-    <Skills skills={skills} />
-    <Articles articles={articles} />
+  <div class="py-0 lg:w-[58%] lg:py-18">
+    <div class="mb-24">
+      <About />
+      <WorkExperience allWorkExperience={allWorkExperience} />
+      <Projects projects={projects} />
+      <Certifications certifications={certifications} />
+      <Education allEducation={allEducation} />
+      <CustomLink
+        href="/resume.pdf"
+        target="_blank"
+        class="flex items-center gap-0.5 transition-all duration-300 ease-in-out hover:gap-1.5"
+        >View full resume <Icon name="arrow-up-right" /></CustomLink
+      >
+    </div>
+    <Works
+      articles={articles}
+      socialMediaContents={socialMediaContents}
+      fundraisingCampaigns={fundraisingCampaigns}
+      pressReleases={pressReleases}
+    />
   </div>
 </MainLayout>

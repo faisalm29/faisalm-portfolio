@@ -2,14 +2,107 @@
 import type { HTMLAttributes } from "astro/types";
 import { cn } from "@/lib/utils";
 
-interface Props extends HTMLAttributes<"section"> {}
+interface Props extends HTMLAttributes<"nav"> {}
 
-const contents = ["about", "experience", "projects"];
+const contents = [
+  {
+    text: "About",
+    slug: "about",
+    deep: 1,
+  },
+  {
+    text: "Work Experience",
+    slug: "work-experience",
+    deep: 1,
+  },
+  {
+    text: "Projects",
+    slug: "projects",
+    deep: 1,
+  },
+  {
+    text: "Certifications",
+    slug: "certifications",
+    deep: 1,
+  },
+  {
+    text: "Education",
+    slug: "education",
+    deep: 1,
+  },
+  {
+    text: "Selected Works",
+    slug: "selected-works",
+    deep: 1,
+  },
+  // {
+  //   text: "Articles",
+  //   slug: "articles",
+  //   deep: 2,
+  // },
+  // {
+  //   text: "Social Media Contents",
+  //   slug: "social-media-contents",
+  //   deep: 2,
+  // },
+  // {
+  //   text: "Fundraising Campaigns",
+  //   slug: "fundraising-campagns",
+  //   deep: 2,
+  // },
+  // {
+  //   text: "Press Releases",
+  //   slug: "press-releases",
+  //   deep: 2,
+  // },
+  // {
+  //   text: "Radio Scripts",
+  //   slug: "radio-scripts",
+  //   deep: 2,
+  // },
+];
 const { class: className, ...props } = Astro.props;
 ---
 
-<section {...props} class={cn("", className)}>
+<nav id="toc" {...props} class={cn("", className)}>
   <ul>
-    {contents.map((content) => <li>{content}</li>)}
+    {
+      contents.map((content) => (
+        <li class="text-muted-foreground">
+          <a
+            href={`#${content.slug}`}
+            class={`${content.deep === 2 ? "pl-4" : ""}`}
+          >
+            {content.text}
+          </a>
+        </li>
+      ))
+    }
   </ul>
-</section>
+</nav>
+
+<script>
+  const observerOptions = {
+    root: null,
+    rootMargin: "0px 0px -80% 0px",
+    treshold: 0,
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      const id = entry.target.getAttribute("id");
+      const tocLink = document.querySelector(`#toc a[href="#${id}"]`);
+
+      if (entry.isIntersecting) {
+        document
+          .querySelectorAll("#toc a")
+          .forEach((a) => a.classList.remove("active"));
+        tocLink?.classList.add("active");
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll("section[data-section]").forEach((s) => {
+    observer.observe(s);
+  });
+</script>

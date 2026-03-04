@@ -6,7 +6,7 @@
     "expirationDate": "Expiration date",
     "institution": "Institution Name",
     "name": "Certification Name",
-    "credential": "credential link"
+    "credential": "https://mfaisal.xyz"
   },
   {
     "id": "name2-institution-year",
@@ -15,7 +15,7 @@
     "expirationDate": "Expiration date",
     "institution": "Institution Name",
     "name": "Certification Name",
-    "credential": "credential link"
+    "credential": "https://mfaisal.xyz"
   },
   {
     "id": "name3-institution-year",
@@ -24,6 +24,6 @@
     "expirationDate": "Expiration date",
     "institution": "Institution Name",
     "name": "Certification Name",
-    "credential": "credential link"
+    "credential": "https://mfaisal.xyz"
   }
 ]

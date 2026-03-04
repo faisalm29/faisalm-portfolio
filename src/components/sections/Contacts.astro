@@ -16,12 +16,16 @@ const contacts = [
 ---
 
 <section>
-  <ul>
+  <ul class="flex items-center gap-4">
     {
       contacts.map((contact) => (
         <li>
-          <a href={contact.url} target="_blank">
-            <Icon name={contact.icon} />
+          <a
+            href={contact.url}
+            target="_blank"
+            class="text-muted-foreground hover:text-foreground transition-all duration-300 ease-in-out"
+          >
+            <Icon name={contact.icon} size={24} />
           </a>
         </li>
       ))

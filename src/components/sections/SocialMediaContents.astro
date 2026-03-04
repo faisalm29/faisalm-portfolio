@@ -1,0 +1,51 @@
+---
+import { cn } from "@/lib/utils";
+import type { HTMLAttributes } from "astro/types";
+import type { CollectionEntry } from "astro:content";
+import InstagramContentFrame from "../InstagramContentFrame.astro";
+import InstagramContentFrameCaption from "../InstagramContentFrameCaption.astro";
+import { ViewMoreButton } from "../ViewMoreButton";
+
+interface Props extends HTMLAttributes<"section"> {
+  socialMediaContents: CollectionEntry<"socialMediaContent">[];
+  viewMoreButton?: boolean;
+}
+
+const {
+  socialMediaContents,
+  viewMoreButton = false,
+  class: className,
+  ...props
+} = Astro.props;
+const currentPathname = Astro.url.pathname;
+---
+
+<section {...props} class={cn("flex flex-col space-y-4", className)}>
+  <h2
+    data-heading="social-media-contents"
+    id="socia-media-contents"
+    class="scroll-m-18 text-lg font-semibold"
+  >
+    Social Media Contents
+  </h2>
+  <ul class="flex flex-col gap-4">
+    {
+      socialMediaContents.map((socialMediaContent) => (
+        <li>
+          {currentPathname === "/social-media-contents" ? (
+            <InstagramContentFrameCaption
+              contentId={socialMediaContent.data.id}
+            />
+          ) : (
+            <InstagramContentFrame contentId={socialMediaContent.data.id} />
+          )}
+        </li>
+      ))
+    }
+    {
+      viewMoreButton && (
+        <ViewMoreButton href="/social-media-contents">See More</ViewMoreButton>
+      )
+    }
+  </ul>
+</section>

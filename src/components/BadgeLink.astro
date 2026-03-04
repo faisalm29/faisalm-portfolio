@@ -1,0 +1,23 @@
+---
+import { cn } from "@/lib/utils";
+import type { HTMLAttributes, Polymorphic } from "astro/types";
+
+type Tags = "a" | "li";
+
+type Props<Tag extends Tags = "li"> = Polymorphic<{
+  as: Tag;
+}> &
+  HTMLAttributes<Tag>;
+
+const { as: Tag = "li", class: className, ...props } = Astro.props;
+---
+
+<Tag
+  {...props}
+  class={cn(
+    "rounded-full border border-transparent px-2 py-0.5 text-xs font-medium w-fit bg-secondary text-secondary-foreground [a&]:hover:bg-secondary/50",
+    className,
+  )}
+>
+  <slot />
+</Tag>

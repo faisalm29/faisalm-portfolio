@@ -3,6 +3,9 @@ import type { CollectionEntry } from "astro:content";
 import type { HTMLAttributes } from "astro/types";
 import { cn } from "@/lib/utils";
 import { Image } from "astro:assets";
+import { Badge } from "./ui/badge";
+import CustomLink from "./CustomLink.astro";
+import { Icon } from "astro-icon/components";
 
 interface Props extends HTMLAttributes<"div"> {
   project: CollectionEntry<"projects">;
@@ -11,14 +14,28 @@ interface Props extends HTMLAttributes<"div"> {
 const { project, class: className, ...props } = Astro.props;
 ---
 
-<div {...props} class={cn("", className)}>
-  <h2>{project.data.name}</h2>
+<div {...props} class={cn("flex flex-col space-y-2", className)}>
+  {
+    project.data.url ? (
+      <h2 class="w-fit">
+        <CustomLink
+          href={project.data.url}
+          class="flex items-center gap-0.5 duration-300 ease-in-out hover:gap-1.5"
+        >
+          {project.data.name} <Icon name="arrow-up-right" />
+        </CustomLink>
+      </h2>
+    ) : (
+      <h2>{project.data.name}</h2>
+    )
+  }
+
   <p>{project.data.description}</p>
   {
     project.data.skills && (
-      <ul>
+      <ul class="flex items-center gap-2">
         {project.data.skills.map((skill) => (
-          <li>{skill}</li>
+          <Badge variant="secondary">{skill}</Badge>
         ))}
       </ul>
     )

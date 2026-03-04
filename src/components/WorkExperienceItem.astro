@@ -3,6 +3,8 @@ import { Icon } from "astro-icon/components";
 import type { HTMLAttributes } from "astro/types";
 import type { CollectionEntry } from "astro:content";
 import { cn } from "@/lib/utils";
+import { Badge } from "./ui/badge";
+import CustomLink from "@/components/CustomLink.astro";
 
 interface Props extends HTMLAttributes<"div"> {
   workExperience: CollectionEntry<"workExperience">;
@@ -11,22 +13,22 @@ interface Props extends HTMLAttributes<"div"> {
 const { workExperience, class: className, ...props } = Astro.props;
 ---
 
-<div {...props} class={cn("", className)}>
-  <div>
-    <p>{workExperience.data.startDate}</p>
-    -
-    <p>{workExperience.data.endDate}</p>
-  </div>
-  <div>
-    <h2>
-      <span>{workExperience.data.role}</span>
-      •
-      <span>{workExperience.data.company}</span>
-    </h2>
-    <Icon name="arrow-up-right" />
-  </div>
+<div {...props} class={cn("flex flex-col space-y-2", className)}>
+  <p>{workExperience.data.startDate} - {workExperience.data.endDate}</p>
+  <h2 class="w-fit">
+    <CustomLink
+      href={workExperience.data.url}
+      class="flex items-center gap-0.5 font-medium transition-all duration-300 ease-in-out hover:gap-1.5"
+      >{workExperience.data.role} • {workExperience.data.company}
+      <Icon name="arrow-up-right" /></CustomLink
+    >
+  </h2>
   <p>{workExperience.data.description}</p>
-  <ul>
-    {workExperience.data.skills.map((skill) => <li>{skill}</li>)}
+  <ul class="flex items-center gap-2">
+    {
+      workExperience.data.skills.map((skill) => (
+        <Badge variant="secondary">{skill}</Badge>
+      ))
+    }
   </ul>
 </div>

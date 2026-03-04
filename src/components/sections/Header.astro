@@ -1,7 +1,18 @@
 ---
+import type { HTMLAttributes } from "astro/types";
 import Profile from "../Profile.astro";
+import { cn } from "@/lib/utils";
+import Skills from "./Skills.astro";
+import type { CollectionEntry } from "astro:content";
+
+interface Props extends HTMLAttributes<"section"> {
+  skills: CollectionEntry<"skills">[];
+}
+
+const { skills, class: className, ...props } = Astro.props;
 ---
 
-<section>
+<section {...props} class={cn("flex flex-col space-y-4", className)}>
   <Profile />
+  <Skills skills={skills} class="w-[80%]" />
 </section>

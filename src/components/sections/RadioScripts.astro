@@ -1,0 +1,18 @@
+---
+import { cn } from "@/lib/utils";
+import type { HTMLAttributes } from "astro/types";
+import CustomLink from "../CustomLink.astro";
+
+interface Props extends HTMLAttributes<"section"> {}
+
+const { class: className, ...props } = Astro.props;
+---
+
+<section {...props} class={cn("flex", className)}>
+  <h2 class="text-foreground">
+    I also wrote radio scripts. See the archive <CustomLink
+      href="/radio-scripts.pdf"
+      target="_blank">here</CustomLink
+    >.
+  </h2>
+</section>

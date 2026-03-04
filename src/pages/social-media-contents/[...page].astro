@@ -1,6 +1,6 @@
 ---
-import InstagramContentFrame from "@/components/InstagramContentFrame.astro";
-import MainLayout from "@/layouts/MainLayout.astro";
+import SocialMediaContents from "@/components/sections/SocialMediaContents.astro";
+import ArticleLayout from "@/layouts/ArticleLayout.astro";
 import type { PaginateFunction } from "astro";
 import { getCollection } from "astro:content";
 
@@ -17,23 +17,16 @@ export const getStaticPaths = async ({ paginate }: PaginateProps) => {
 };
 
 const { page } = Astro.props;
-const { data, url, currentPage, lastPage } = page;
+const { data, url, currentPage } = page;
 ---
 
-<MainLayout>
-  <h1>All Social Media Contents</h1>
-  <ul>
-    {
-      data.map((socialMediaContent) => (
-        <li>
-          <InstagramContentFrame contentId={socialMediaContent.data.id} />
-        </li>
-      ))
-    }
-  </ul>
-  {url.first && currentPage > 2 && <a href={url.first}>First</a>}
-  {url.prev && <a href={url.prev}>Previous</a>}
-  <span>{currentPage}</span>
-  {url.next && currentPage < 7 && <a href={url.next}>Next</a>}
-  {url.last && <a href={url.last}>Last</a>}
-</MainLayout>
+<ArticleLayout>
+  <section>
+    <SocialMediaContents socialMediaContents={data} />
+    {url.first && currentPage > 2 && <a href={url.first}>First</a>}
+    {url.prev && <a href={url.prev}>Previous</a>}
+    <span>{currentPage}</span>
+    {url.next && currentPage < 7 && <a href={url.next}>Next</a>}
+    {url.last && <a href={url.last}>Last</a>}
+  </section>
+</ArticleLayout>

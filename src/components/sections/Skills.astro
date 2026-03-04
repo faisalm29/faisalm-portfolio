@@ -1,8 +1,8 @@
 ---
-import SkillItem from "../SkillItem.astro";
 import type { HTMLAttributes } from "astro/types";
 import type { CollectionEntry } from "astro:content";
 import { cn } from "@/lib/utils";
+import { Badge } from "../ui/badge";
 
 interface Props extends HTMLAttributes<"section"> {
   skills: CollectionEntry<"skills">[];
@@ -12,7 +12,13 @@ const { skills, class: className, ...props } = Astro.props;
 ---
 
 <section {...props} class={cn(className)}>
-  <ul>
-    {skills.map((skill) => <SkillItem skill={skill} />)}
+  <ul class="flex flex-wrap items-center gap-2">
+    {
+      skills.map((skill) => (
+        <li>
+          <Badge>{skill.data.name}</Badge>
+        </li>
+      ))
+    }
   </ul>
 </section>

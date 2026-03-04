@@ -2,6 +2,8 @@
 import type { HTMLAttributes } from "astro/types";
 import type { CollectionEntry } from "astro:content";
 import { cn } from "@/lib/utils";
+import CustomLink from "./CustomLink.astro";
+import { Icon } from "astro-icon/components";
 
 interface Props extends HTMLAttributes<"li"> {
   education: CollectionEntry<"education">;
@@ -10,10 +12,15 @@ interface Props extends HTMLAttributes<"li"> {
 const { education, class: className, ...props } = Astro.props;
 ---
 
-<li {...props} class={cn("", className)}>
-  <h2>
-    <span>{education.data.institution}</span>
-    <span>{education.data.startDate} - {education.data.endDate}</span>
+<li {...props} class={cn("flex flex-col space-y-2", className)}>
+  <h2 class="w-fit">
+    <CustomLink
+      href={education.data.url}
+      class="flex items-center gap-0.5 transition-all duration-300 ease-in-out hover:gap-1.5"
+      >{education.data.institution} ({education.data.startDate} - {
+        education.data.endDate
+      }) <Icon name="arrow-up-right" /></CustomLink
+    >
   </h2>
   <p>
     {education.data.major}

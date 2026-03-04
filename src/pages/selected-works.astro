@@ -1,0 +1,48 @@
+---
+import ArticleLayout from "@/layouts/ArticleLayout.astro";
+import Works from "@/components/sections/Works.astro";
+import { getCollection } from "astro:content";
+import { Articles } from "@/components/sections/Articles";
+import SocialMediaContents from "@/components/sections/SocialMediaContents.astro";
+import { FundraisingCampaigns } from "@/components/sections/FundraisingCampaigns";
+import PressReleases from "@/components/sections/PressReleases.astro";
+import RadioScripts from "@/components/sections/RadioScripts.astro";
+import CustomLink from "@/components/CustomLink.astro";
+import { Icon } from "astro-icon/components";
+
+const articles = await getCollection("article");
+const socialMediaContents = (await getCollection("socialMediaContent")).slice(
+  0,
+  5,
+);
+const fundraisingCampaigns = await getCollection("fundraisingCampaign");
+const pressReleases = await getCollection("pressRelease");
+const currentPathname = Astro.url.pathname;
+---
+
+<ArticleLayout>
+  <h2>Selected Works</h2>
+  <div class="flex flex-col space-y-12">
+    <Articles articles={articles} viewMoreButton />
+    <SocialMediaContents
+      socialMediaContents={socialMediaContents}
+      viewMoreButton
+    />
+    <FundraisingCampaigns
+      fundraisingCampaigns={fundraisingCampaigns}
+      viewMoreButton
+    />
+    <PressReleases pressReleases={pressReleases} viewMoreButton />
+    <RadioScripts />
+    {
+      currentPathname === "/" && (
+        <CustomLink
+          href="/selected-works"
+          class="flex items-center gap-0.5 transition-all duration-300 ease-in-out hover:gap-1.5"
+        >
+          View more selected works <Icon name="arrow-right" />
+        </CustomLink>
+      )
+    }
+  </div>
+</ArticleLayout>

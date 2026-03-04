@@ -1,21 +1,12 @@
 ---
+import { FundraisingCampaigns } from "@/components/sections/FundraisingCampaigns";
+import ArticleLayout from "@/layouts/ArticleLayout.astro";
 import MainLayout from "@/layouts/MainLayout.astro";
 import { getCollection } from "astro:content";
 
 const fundraisingCampaigns = await getCollection("fundraisingCampaign");
 ---
 
-<MainLayout>
-  <h1>All Fundraising Campaigns</h1>
-  <ul>
-    {
-      fundraisingCampaigns.map((fundraisingCampaign) => (
-        <li>
-          <a href={`/fundraising-campaigns/${fundraisingCampaign.id}`}>
-            {fundraisingCampaign.data.title}
-          </a>
-        </li>
-      ))
-    }
-  </ul>
-</MainLayout>
+<ArticleLayout>
+  <FundraisingCampaigns fundraisingCampaigns={fundraisingCampaigns} />
+</ArticleLayout>

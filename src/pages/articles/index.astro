@@ -1,13 +1,11 @@
 ---
-import MainLayout from "@/layouts/MainLayout.astro";
 import { getCollection } from "astro:content";
+import ArticleLayout from "@/layouts/ArticleLayout.astro";
+import { Articles } from "@/components/sections/Articles";
 
 const articles = await getCollection("article");
 ---
 
-<MainLayout>
-  <h1>All Article</h1>
-  <ul>
-    {articles.map((article) => <li>{article.data.title}</li>)}
-  </ul>
-</MainLayout>
+<ArticleLayout>
+  <Articles articles={articles} />
+</ArticleLayout>

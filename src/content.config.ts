@@ -79,7 +79,7 @@ const workExperience = defineCollection({
     company: z.string(),
     description: z.string(),
     skills: z.array(z.string()),
-    url: z.string().optional(),
+    url: z.string(),
   }),
 });
 
@@ -93,7 +93,7 @@ const projects = defineCollection({
       description: z.string(),
       thumbnail: image().optional(),
       skills: z.array(z.string()).optional(),
-      url: z.string(),
+      url: z.string().optional(),
     }),
 });
 

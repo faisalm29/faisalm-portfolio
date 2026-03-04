@@ -139,4 +139,12 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  p {
+    @apply text-muted-foreground;
+  }
+
+  .active {
+    @apply text-blue-400!;
+  }
 }
