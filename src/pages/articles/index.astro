@@ -4,8 +4,16 @@ import ArticleLayout from "@/layouts/ArticleLayout.astro";
 import { Articles } from "@/components/sections/Articles";
 
 const articles = await getCollection("article");
+
+const pageSize = 10;
+const firstPageArticles = articles.slice(0, pageSize);
+const totalPages = Math.ceil(articles.length / pageSize);
 ---
 
 <ArticleLayout>
-  <Articles articles={articles} />
+  <Articles articles={firstPageArticles} />
+  <nav class="flex items-center justify-center gap-2">
+    {articles.length > pageSize && <span>1</span>}
+    {totalPages > 1 && <a href="/articles/2">Next</a>}
+  </nav>
 </ArticleLayout>

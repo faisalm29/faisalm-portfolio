@@ -1,0 +1,27 @@
+---
+import SocialMediaContents from "@/components/sections/SocialMediaContents.astro";
+import ArticleLayout from "@/layouts/ArticleLayout.astro";
+import { getCollection } from "astro:content";
+
+const socialMediaContents = await getCollection("socialMediaContent");
+
+const pageSize = 5;
+const firstPageContents = socialMediaContents.slice(0, pageSize);
+const totalPages = Math.ceil(socialMediaContents.length / pageSize);
+---
+
+<ArticleLayout>
+  <section>
+    <SocialMediaContents socialMediaContents={firstPageContents} />
+
+    <nav class="flex items-center justify-center gap-2">
+      {socialMediaContents.length > pageSize && <span>1</span>}
+      {totalPages > 1 && <a href="/social-media-contents/2">Next</a>}
+      {
+        totalPages > 1 && (
+          <a href={`/social-media-contents/${String(totalPages)}`}>Last</a>
+        )
+      }
+    </nav>
+  </section>
+</ArticleLayout>

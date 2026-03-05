@@ -1,12 +1,19 @@
 ---
-import { FundraisingCampaigns } from "@/components/sections/FundraisingCampaigns";
-import ArticleLayout from "@/layouts/ArticleLayout.astro";
-import MainLayout from "@/layouts/MainLayout.astro";
 import { getCollection } from "astro:content";
+import ArticleLayout from "@/layouts/ArticleLayout.astro";
+import { FundraisingCampaigns } from "@/components/sections/FundraisingCampaigns";
 
 const fundraisingCampaigns = await getCollection("fundraisingCampaign");
+
+const pageSize = 10;
+const firstPageFundraisingCampaigns = fundraisingCampaigns.slice(0, pageSize);
+const totalPages = Math.ceil(fundraisingCampaigns.length / pageSize);
 ---
 
 <ArticleLayout>
-  <FundraisingCampaigns fundraisingCampaigns={fundraisingCampaigns} />
+  <FundraisingCampaigns fundraisingCampaigns={firstPageFundraisingCampaigns} />
+  <nav class="flex items-center justify-center gap-2">
+    {fundraisingCampaigns.length > pageSize && <span>1</span>}
+    {totalPages > 1 && <a href="/articles/2">Next</a>}
+  </nav>
 </ArticleLayout>

@@ -1,30 +1,30 @@
 [
   {
-    "id": "skill1",
-    "name": "skill name"
+    "id": "copywriting-content-writing",
+    "name": "Copywriting/content writing"
   },
   {
-    "id": "skill2",
-    "name": "skill name"
+    "id": "seo",
+    "name": "SEO"
   },
   {
-    "id": "skill3",
-    "name": "skill name"
+    "id": "digital-marketing",
+    "name": "Digital Marketing"
   },
   {
-    "id": "skill4",
-    "name": "skill name"
+    "id": "social-media-management",
+    "name": "Social Media Management"
   },
   {
-    "id": "skill5",
-    "name": "skill name"
+    "id": "digital-advertising",
+    "name": "Digital Advertising"
   },
   {
-    "id": "skill6",
-    "name": "skill name"
+    "id": "wordpress-cms",
+    "name": "WordPress (CMS)"
   },
   {
-    "id": "skill7",
-    "name": "skill name"
+    "id": "communication",
+    "name": "Communication"
   }
 ]

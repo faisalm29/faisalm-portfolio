@@ -1,0 +1,39 @@
+---
+import PressReleases from "@/components/sections/PressReleases.astro";
+import ArticleLayout from "@/layouts/ArticleLayout.astro";
+import type { PaginateFunction } from "astro";
+import { getCollection } from "astro:content";
+
+interface PaginateProps {
+  paginate: PaginateFunction;
+}
+
+export const getStaticPaths = async ({ paginate }: PaginateProps) => {
+  const pressReleases = await getCollection("pressRelease");
+
+  return paginate(pressReleases, {
+    pageSize: 10,
+  }).filter(({ params }) => params.page !== "1");
+};
+
+const { page } = Astro.props;
+const { currentPage, data, lastPage, total, url } = page;
+---
+
+<ArticleLayout>
+  <section>
+    <PressReleases pressReleases={data} />
+
+    <nav class="flex items-center justify-center gap-2">
+      {
+        url.first && currentPage > 2 && (
+          <a href="/social-media-contents">First</a>
+        )
+      }
+      {url.prev && <a href={url.prev}>Previous</a>}
+      {total > 1 && <span>{currentPage}</span>}
+      {url.next && currentPage < lastPage && <a href={url.next}>Next</a>}
+      {url.last && <a href={url.last}>Last</a>}
+    </nav>
+  </section>
+</ArticleLayout>

@@ -25,7 +25,6 @@ const {
   class: className,
   ...props
 } = Astro.props;
-const currentPathname = Astro.url.pathname;
 ---
 
 <section
@@ -47,15 +46,5 @@ const currentPathname = Astro.url.pathname;
     />
     <PressReleases pressReleases={pressReleases} viewMoreButton />
     <RadioScripts />
-    {
-      currentPathname === "/" && (
-        <CustomLink
-          href="/selected-works"
-          class="flex items-center gap-0.5 transition-all duration-300 ease-in-out hover:gap-1.5"
-        >
-          View more selected works <Icon name="arrow-right" />
-        </CustomLink>
-      )
-    }
   </div>
 </section>

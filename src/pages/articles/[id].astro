@@ -5,6 +5,7 @@ import { Image } from "astro:assets";
 import { formatDate } from "@/lib/utils";
 import { Icon } from "astro-icon/components";
 import { getImage } from "astro:assets";
+import CustomLink from "@/components/CustomLink.astro";
 
 export const getStaticPaths = async () => {
   const articles = await getCollection("article", ({ data }) => {
@@ -17,7 +18,7 @@ export const getStaticPaths = async () => {
 };
 
 const { article } = Astro.props;
-const { title, description, thumbnail, publishedDate, categories } =
+const { title, description, thumbnail, publishedDate, categories, source } =
   article.data;
 const { Content } = await render(article);
 
@@ -67,6 +68,21 @@ if (article.data.thumbnail) {
           </div>
         )
       }
+
+      <div class="bg-accent border-border rounded-md border p-4">
+        <div class="flex items-start gap-3">
+          <Icon name="alert" size={24} class="text-chart-5" />
+          <div>
+            <p>
+              This article was originally published on <CustomLink
+                href={source}
+                class="inline-flex items-center gap-1"
+                >DoCheck<Icon name="arrow-up-right" /></CustomLink
+              >
+            </p>
+          </div>
+        </div>
+      </div>
 
       <div class="flex items-center gap-2">
         <Icon name="calendar" size={16} class="text-muted-foreground" />

@@ -1,4 +1,5 @@
 ---
+import CustomLink from "@/components/CustomLink.astro";
 import ImageContainer from "@/components/mdx/ImageContainer.astro";
 import ArticleLayout from "@/layouts/ArticleLayout.astro";
 import { formatDate } from "@/lib/utils";
@@ -65,51 +66,50 @@ if (thumbnail) {
 >
   <article class="flex flex-col space-y-6">
     <div class="flex flex-col space-y-8">
-      <div class="border-border bg-accent/50 rounded-md border p-4">
-        <div class="flex flex-col space-y-8">
-          {
-            thumbnail && (
-              <Image
-                src={thumbnail}
-                alt={`${title}'s movie poster`}
-                sizes="100vw"
-                width={200}
-                height={100}
-                class="mx-0 h-auto w-full rounded-md"
-              />
-            )
-          }
-          <div class="flex flex-col space-y-4">
-            <!-- <div>
-              <p class="font-medium">Funds raised</p>
-              <p class="text-muted-foreground">{totalDonation}</p>
-            </div> -->
-            <div>
-              <p class="font-medium">Originally published on</p>
-              <ul>
-                {
-                  publishedIn.map((source) => (
-                    <li>
-                      <a
-                        href={source.url}
-                        target="_blank"
-                        class="text-muted-foreground flex w-fit items-center gap-1"
-                      >
-                        {source.name}
-                        <Icon name="arrow-up-right" />
-                      </a>
-                    </li>
-                  ))
-                }
-              </ul>
-            </div>
-            <div>
-              <p class="font-medium">Originally published at</p>
-              <p class="text-muted-foreground">{formatDate(publishedDate)}</p>
-            </div>
+      {
+        thumbnail && (
+          <Image
+            src={thumbnail}
+            alt={`${title}'s movie poster`}
+            sizes="100vw"
+            width={200}
+            height={100}
+            class="mx-0 h-auto w-full rounded-md"
+          />
+        )
+      }
+
+      <div class="bg-accent border-border rounded-md border p-4">
+        <div class="flex items-start gap-3">
+          <Icon name="alert" size={24} class="text-chart-5" />
+          <div class="flex flex-col space-y-1">
+            <p>This fundraising campaign was originally published on:</p>
+            <ul class="flex flex-col space-y-1">
+              {
+                publishedIn.map((source) => (
+                  <li>
+                    <CustomLink
+                      href={source.url}
+                      class="inline-flex items-center gap-1"
+                    >
+                      {source.name}
+                      <Icon name="arrow-up-right" />
+                    </CustomLink>
+                  </li>
+                ))
+              }
+            </ul>
           </div>
         </div>
       </div>
+
+      <div class="flex items-center gap-2">
+        <Icon name="calendar" size={16} class="text-muted-foreground" />
+        <time class="text-muted-foreground text-sm">
+          {formatDate(publishedDate)}
+        </time>
+      </div>
+
       <h1 class="text-2xl font-semibold">{title}</h1>
     </div>
     <div

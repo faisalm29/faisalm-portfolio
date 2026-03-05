@@ -4,8 +4,16 @@ import ArticleLayout from "@/layouts/ArticleLayout.astro";
 import { getCollection } from "astro:content";
 
 const pressReleases = await getCollection("pressRelease");
+
+const pageSize = 10;
+const firstPagePressReleases = pressReleases.slice(0, pageSize);
+const totalPages = Math.ceil(pressReleases.length / pageSize);
 ---
 
 <ArticleLayout>
-  <PressReleases pressReleases={pressReleases} />
+  <PressReleases pressReleases={firstPagePressReleases} />
+  <nav class="flex items-center justify-center gap-2">
+    {pressReleases.length > pageSize && <span>1</span>}
+    {totalPages > 1 && <a href="/articles/2">Next</a>}
+  </nav>
 </ArticleLayout>

@@ -6,6 +6,7 @@ import { formatDate } from "@/lib/utils";
 import { Icon } from "astro-icon/components";
 import { getImage } from "astro:assets";
 import ImageContainer from "@/components/mdx/ImageContainer.astro";
+import CustomLink from "@/components/CustomLink.astro";
 
 export const getStaticPaths = async () => {
   const fundraisingCampaigns = await getCollection(
@@ -69,41 +70,43 @@ if (fundraisingCampaign.data.thumbnail) {
 >
   <article class="flex flex-col space-y-6">
     <div class="flex flex-col space-y-8">
-      <div class="border-border bg-accent/50 rounded-md border p-4">
-        <div class="flex flex-col space-y-8">
-          {
-            thumbnail && (
-              <Image
-                src={thumbnail}
-                alt={`${title}'s movie poster`}
-                sizes="100vw"
-                width={200}
-                height={100}
-                class="mx-0 h-auto w-full rounded-md"
-              />
-            )
-          }
-          <div class="flex flex-col space-y-4">
-            <div>
-              <p class="font-medium">Funds raised</p>
-              <p class="text-muted-foreground">{totalDonation}</p>
-            </div>
-            <div>
-              <p class="font-medium">Originally published on</p>
-              <a
+      {
+        thumbnail && (
+          <Image
+            src={thumbnail}
+            alt={`${title}'s movie poster`}
+            sizes="100vw"
+            width={200}
+            height={100}
+            class="mx-0 h-auto w-full rounded-md"
+          />
+        )
+      }
+
+      <div class="bg-accent border-border rounded-md border p-4">
+        <div class="flex items-start gap-3">
+          <Icon name="alert" size={24} class="text-chart-5" />
+          <div>
+            <p>
+              This fundraising campaign was originally published on<CustomLink
                 href={source}
-                target="_blank"
-                class="text-muted-foreground flex w-fit items-center gap-1"
-                >Insan Bumi Mandiri<Icon name="arrow-up-right" /></a
+                class="inline-flex items-center gap-1"
+                >Insan Bumi Mandiri<Icon name="arrow-up-right" /></CustomLink
+              > and successfully raised <span class="text-foreground"
+                >Rp{totalDonation}</span
               >
-            </div>
-            <div>
-              <p class="font-medium">Originally published at</p>
-              <p class="text-muted-foreground">{formatDate(publishedDate)}</p>
-            </div>
+            </p>
           </div>
         </div>
       </div>
+
+      <div class="flex items-center gap-2">
+        <Icon name="calendar" size={16} class="text-muted-foreground" />
+        <time class="text-muted-foreground text-sm">
+          {formatDate(publishedDate)}
+        </time>
+      </div>
+
       <h1 class="text-2xl font-semibold">{title}</h1>
     </div>
     <div
