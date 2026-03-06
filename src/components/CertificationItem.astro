@@ -2,37 +2,56 @@
 import type { HTMLAttributes } from "astro/types";
 import type { CollectionEntry } from "astro:content";
 import { cn } from "@/lib/utils";
-// import { BadgeLink } from "./BadgeLink";
-import BadgeLink from "./BadgeLink.astro";
 import { Icon } from "astro-icon/components";
+import CustomLink from "./CustomLink.astro";
 
 interface Props extends HTMLAttributes<"li"> {
   certification: CollectionEntry<"certifications">;
 }
 
 const { certification, class: className, ...props } = Astro.props;
+const {
+  credential,
+  institution,
+  mayExpire,
+  name,
+  acquiredDate,
+  expirationDate,
+} = certification.data;
 ---
 
-<li {...props} class={cn("flex flex-col space-y-2", className)}>
-  <h2>
-    {certification.data.institution}
-    {
-      certification.data.mayExpire ? (
-        <span>
-          ({certification.data.acquiredDate} -{" "}
-          {certification.data.expirationDate})
-        </span>
-      ) : (
-        <span>(No expiration date)</span>
-      )
-    }
-  </h2>
-  <div class="flex items-center gap-2">
-    <p>{certification.data.name}</p>
-    <BadgeLink
-      as="a"
-      href={certification.data.credential}
-      class="flex items-center gap-1">Credential <Icon name="link" /></BadgeLink
-    >
+<li
+  {...props}
+  class={cn(
+    "flex flex-col space-y-4 lg:grid lg:gap-4 lg:grid-cols-8",
+    className,
+  )}
+>
+  {
+    mayExpire ? (
+      <span class="text-muted-foreground text-sm lg:col-span-2 lg:pt-0.5">
+        {acquiredDate} - {expirationDate}
+      </span>
+    ) : (
+      <span class="text-muted-foreground text-sm lg:col-span-2 lg:pt-0.5">
+        {" "}
+        No expiration date
+      </span>
+    )
+  }
+
+  <div class="flex flex-col space-y-4 lg:col-span-6">
+    <h2 class="group">
+      <CustomLink href={credential}>
+        {name}
+        <Icon
+          name="arrow-up-right"
+          class="ml-0.5 inline-block transition-all duration-300 ease-in-out group-hover:ml-1.5"
+        />
+      </CustomLink>
+    </h2>
+    <div class="flex items-center gap-2">
+      <p>{institution}</p>
+    </div>
   </div>
 </li>

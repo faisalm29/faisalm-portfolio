@@ -14,41 +14,53 @@ interface Props extends HTMLAttributes<"div"> {
 const { project, class: className, ...props } = Astro.props;
 ---
 
-<div {...props} class={cn("flex flex-col space-y-2", className)}>
-  {
-    project.data.url ? (
-      <h2 class="w-fit">
-        <CustomLink
-          href={project.data.url}
-          class="flex items-center gap-0.5 duration-300 ease-in-out hover:gap-1.5"
-        >
-          {project.data.name} <Icon name="arrow-up-right" />
-        </CustomLink>
-      </h2>
-    ) : (
-      <h2>{project.data.name}</h2>
-    )
-  }
+<div
+  {...props}
+  class={cn(
+    "flex flex-col space-y-4 lg:grid lg:gap-4 lg:grid-cols-8",
+    className,
+  )}
+>
+  <span class="text-muted-foreground text-sm lg:col-span-2 lg:pt-0.5"
+    >{project.data.year}</span
+  >
+  <div class="flex flex-col space-y-4 lg:col-span-6">
+    {
+      project.data.url ? (
+        <h2>
+          <CustomLink href={project.data.url} class="group">
+            {project.data.name}
+            <Icon
+              name="arrow-up-right"
+              class="ml-0.5 inline-block transition-all duration-300 ease-in-out group-hover:ml-1.5"
+            />
+          </CustomLink>
+        </h2>
+      ) : (
+        <h2>{project.data.name}</h2>
+      )
+    }
 
-  <p>{project.data.description}</p>
-  {
-    project.data.skills && (
-      <ul class="flex items-center gap-2">
-        {project.data.skills.map((skill) => (
-          <Badge variant="secondary">{skill}</Badge>
-        ))}
-      </ul>
-    )
-  }
-  {
-    project.data.thumbnail && (
-      <Image
-        src={project.data.thumbnail}
-        alt={`${project.data.name} project's image`}
-        layout="constrained"
-        format="webp"
-        class="h-full w-full object-cover object-center"
-      />
-    )
-  }
+    <p class="text-sm leading-relaxed">{project.data.description}</p>
+    {
+      project.data.skills && (
+        <ul class="flex items-center gap-2">
+          {project.data.skills.map((skill) => (
+            <Badge variant="secondary">{skill}</Badge>
+          ))}
+        </ul>
+      )
+    }
+    {
+      project.data.thumbnail && (
+        <Image
+          src={project.data.thumbnail}
+          alt={`${project.data.name} project's image`}
+          layout="constrained"
+          format="webp"
+          class="h-full w-full object-cover object-center"
+        />
+      )
+    }
+  </div>
 </div>

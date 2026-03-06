@@ -15,10 +15,10 @@ const { certifications, class: className, ...props } = Astro.props;
   {...props}
   id="certifications"
   data-section="certifications"
-  class={cn("flex flex-col space-y-4 scroll-m-18 mb-12", className)}
+  class={cn("flex flex-col space-y-12 scroll-m-18 mb-24", className)}
 >
   <h2 class="text-xl font-semibold">Certifications</h2>
-  <ul class="flex flex-col space-y-4">
+  <ul class="flex flex-col space-y-12">
     {
       certifications.map((certification) => (
         <CertificationItem certification={certification} />

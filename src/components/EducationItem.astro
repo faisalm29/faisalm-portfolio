@@ -12,22 +12,31 @@ interface Props extends HTMLAttributes<"li"> {
 const { education, class: className, ...props } = Astro.props;
 ---
 
-<li {...props} class={cn("flex flex-col space-y-2", className)}>
-  <h2 class="w-fit">
-    <CustomLink
-      href={education.data.url}
-      class="flex items-center gap-0.5 transition-all duration-300 ease-in-out hover:gap-1.5"
-      >{education.data.institution} ({education.data.startDate} - {
-        education.data.endDate
-      }) <Icon name="arrow-up-right" /></CustomLink
-    >
-  </h2>
-  <p>
-    {education.data.major}
-    {
-      education.data.additionalInfo && (
-        <span>- {education.data.additionalInfo}</span>
-      )
-    }
-  </p>
+<li
+  {...props}
+  class={cn(
+    "flex flex-col space-y-4 lg:grid lg:gap-4 lg:grid-cols-8",
+    className,
+  )}
+>
+  <span class="text-muted-foreground text-sm lg:col-span-2 lg:pt-0.5"
+    >{education.data.startDate} - {education.data.endDate}</span
+  >
+  <div class="flex flex-col space-y-4 lg:col-span-6">
+    <h2 class="w-fit">
+      <CustomLink
+        href={education.data.url}
+        class="flex items-center gap-0.5 transition-all duration-300 ease-in-out hover:gap-1.5"
+        >{education.data.institution} <Icon name="arrow-up-right" /></CustomLink
+      >
+    </h2>
+    <p>
+      {education.data.major}
+      {
+        education.data.additionalInfo && (
+          <span>- {education.data.additionalInfo}</span>
+        )
+      }
+    </p>
+  </div>
 </li>

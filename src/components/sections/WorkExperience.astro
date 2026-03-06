@@ -15,10 +15,10 @@ const { class: className, allWorkExperience, ...props } = Astro.props;
   {...props}
   id="work-experience"
   data-section="work-experience"
-  class={cn("flex flex-col space-y-4 scroll-m-18 mb-12", className)}
+  class={cn("flex flex-col space-y-12 scroll-m-18 mb-24", className)}
 >
   <h2 class="text-xl font-semibold">Work Experience</h2>
-  <ul class="flex flex-col space-y-6">
+  <ul class="flex flex-col space-y-12">
     {
       allWorkExperience.map((workExperience) => (
         <WorkExperienceItem workExperience={workExperience} />

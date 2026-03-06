@@ -1,24 +1,29 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 import { cn } from "@/lib/utils";
+import CustomLink from "../CustomLink.astro";
 
 interface Props extends HTMLAttributes<"section"> {
   description?: string;
 }
 
-const {
-  class: className,
-  description = "Content Writer with 1 year of experience working in the technology industry and non-governmental organizations. Successfully authored 90+ fundraising campaigns that collectively raised over Rp2.600.000.000+ (see detail) as a Content Writer for the Insan Bumi Mandiri Foundation. Have attended a digital marketing bootcamp for 3 months to learn digital marketing in more depth. Skilled in content writing/copywriting, SEO, and digital marketing.",
-  ...props
-} = Astro.props;
+const { class: className, ...props } = Astro.props;
 ---
 
 <section
   {...props}
   id="about"
   data-section="about"
-  class={cn("flex flex-col space-y-4 scroll-m-18 mb-12", className)}
+  class={cn("flex flex-col space-y-12 scroll-m-18 mb-24", className)}
 >
-  <h2 class="text-xl font-semibold">About</h2>
-  <p>{description}</p>
+  <p>
+    Content Writer with 1 year of experience working in the technology industry
+    and non-governmental organizations. Successfully authored 90+ fundraising
+    campaigns that collectively raised over Rp2.600.000.000+ (<CustomLink
+      href="https://1drv.ms/x/c/769432b423d54538/EVue8HsM8yFBku2KDG9svq8BbllN77J7FMJfG4UqlVZWPA?e=m2wbnq"
+      >see detail</CustomLink
+    >) as a Content Writer for the Insan Bumi Mandiri Foundation. Have attended
+    a digital marketing bootcamp for 3 months to learn digital marketing in more
+    depth. Skilled in content writing/copywriting, SEO, and digital marketing.
+  </p>
 </section>

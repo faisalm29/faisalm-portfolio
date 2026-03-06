@@ -11,24 +11,42 @@ interface Props extends HTMLAttributes<"div"> {
 }
 
 const { workExperience, class: className, ...props } = Astro.props;
+const { company, description, endDate, role, skills, startDate, url } =
+  workExperience.data;
 ---
 
-<div {...props} class={cn("flex flex-col space-y-2", className)}>
-  <p>{workExperience.data.startDate} - {workExperience.data.endDate}</p>
-  <h2 class="w-fit">
-    <CustomLink
-      href={workExperience.data.url}
-      class="flex items-center gap-0.5 font-medium transition-all duration-300 ease-in-out hover:gap-1.5"
-      >{workExperience.data.role} • {workExperience.data.company}
-      <Icon name="arrow-up-right" /></CustomLink
-    >
-  </h2>
-  <p>{workExperience.data.description}</p>
-  <ul class="flex items-center gap-2">
+<div
+  {...props}
+  class={cn(
+    "flex flex-col space-y-4 lg:grid lg:gap-4 lg:grid-cols-8",
+    className,
+  )}
+>
+  <span class="text-muted-foreground text-sm lg:col-span-2 lg:pt-0.5"
+    >{startDate} - {endDate}</span
+  >
+  <div class="flex flex-col space-y-4 lg:col-span-6">
     {
-      workExperience.data.skills.map((skill) => (
-        <Badge variant="secondary">{skill}</Badge>
-      ))
+      url ? (
+        <h2 class="w-fit">
+          <CustomLink
+            href={url}
+            class="flex items-center gap-0.5 font-medium transition-all duration-300 ease-in-out hover:gap-1.5"
+          >
+            {role} • {company}
+            <Icon name="arrow-up-right" />
+          </CustomLink>
+        </h2>
+      ) : (
+        <h2 class="w-fit">
+          {role} • {company}
+        </h2>
+      )
     }
-  </ul>
+
+    <p class="text-sm leading-relaxed">{description}</p>
+    <ul class="flex items-center gap-2">
+      {skills.map((skill) => <Badge variant="secondary">{skill}</Badge>)}
+    </ul>
+  </div>
 </div>

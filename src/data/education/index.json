@@ -1,20 +1,20 @@
 [
   {
-    "id": "institution1-year",
-    "startDate": "from",
-    "endDate": "until",
-    "institution": "Institutuion Name",
-    "major": "Major",
-    "additionalInfo": "Some additional info",
-    "url": "institution website"
+    "id": "padjadjaran-university-2017",
+    "startDate": "Aug 2017",
+    "endDate": "Aug 2022",
+    "institution": "Padjadjaran University",
+    "major": "Bachelor Communication Science",
+    "additionalInfo": "GPA 3.63",
+    "url": "https://www.unpad.ac.id/"
   },
   {
-    "id": "institution2-year",
-    "startDate": "from",
-    "endDate": "until",
-    "institution": "Institutuion Name",
-    "major": "Major",
-    "additionalInfo": "Some additional info",
-    "url": "institution website"
+    "id": "tempat-belajar-2024",
+    "startDate": "Feb 2024",
+    "endDate": "May 2024",
+    "institution": "Tempat Belajar",
+    "major": "Full-Stack Digital Marketing Bootcamp",
+    "additionalInfo": "Batch #12",
+    "url": "https://tempatbelajar.id/"
   }
 ]
