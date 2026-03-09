@@ -6,9 +6,10 @@ import { formatDate } from "@/lib/utils";
 import { Icon } from "astro-icon/components";
 import { getImage } from "astro:assets";
 import CustomLink from "@/components/CustomLink.astro";
+import ImageContainer from "@/components/mdx/ImageContainer.astro";
 
 export const getStaticPaths = async () => {
-  const articles = await getCollection("article", ({ data }) => {
+  const articles = await getCollection("doCheckArticle", ({ data }) => {
     return import.meta.env.PROD ? data.draft !== true : true;
   });
   return articles.map((article) => ({
@@ -27,6 +28,8 @@ if (article.data.thumbnail) {
   const thumbnail = await getImage({
     src: article.data.thumbnail,
     format: "jpeg",
+    width: 200,
+    height: 100,
   });
   ogImageURL = new URL(thumbnail.src, Astro.url.origin).href;
 } else {
@@ -58,14 +61,14 @@ if (article.data.thumbnail) {
     <div class="flex flex-col space-y-8">
       {
         thumbnail && (
-          <div class="relative aspect-2/1 w-full overflow-hidden rounded-md">
-            <Image
-              src={thumbnail}
-              alt={title}
-              layout="constrained"
-              class="h-full w-full object-cover object-center"
-            />
-          </div>
+          <Image
+            src={thumbnail}
+            alt={`${title}'s movie poster`}
+            sizes="100vw"
+            width={200}
+            height={100}
+            class="mx-0 h-auto w-full rounded-md"
+          />
         )
       }
 
@@ -96,7 +99,7 @@ if (article.data.thumbnail) {
     <div
       class="prose text-muted-foreground dark:prose-invert max-w-full leading-relaxed text-pretty"
     >
-      <Content />
+      <Content components={{ img: ImageContainer }} />
     </div>
   </article>
 </ArticleLayout>

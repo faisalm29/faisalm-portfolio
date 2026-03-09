@@ -12,19 +12,23 @@ import { getCollection } from "astro:content";
 import Works from "@/components/sections/Works.astro";
 import CustomLink from "@/components/CustomLink.astro";
 import { Icon } from "astro-icon/components";
+import { getAllArticles, sortPosts, sortArticles } from "@/lib/utils";
+import { ViewMoreButton } from "@/components/ViewMoreButton";
 
 const allWorkExperience = await getCollection("workExperience");
 const projects = await getCollection("projects");
 const allEducation = await getCollection("education");
 const certifications = await getCollection("certifications");
 const skills = await getCollection("skills");
-const articles = await getCollection("article");
 const socialMediaContents = (await getCollection("socialMediaContent")).slice(
   0,
   2,
 );
-const fundraisingCampaigns = await getCollection("fundraisingCampaign");
-const pressReleases = await getCollection("pressRelease");
+const fundraisingCampaigns = sortPosts(
+  await getCollection("fundraisingCampaign"),
+).slice(0, 5);
+const pressReleases = (await getCollection("pressRelease")).slice(0, 5);
+const articles = sortArticles(await getAllArticles()).slice(0, 5);
 ---
 
 <MainLayout>
@@ -42,11 +46,8 @@ const pressReleases = await getCollection("pressRelease");
       <Projects projects={projects} />
       <Certifications certifications={certifications} />
       <Education allEducation={allEducation} />
-      <CustomLink
-        href="/resume.pdf"
-        target="_blank"
-        class="flex items-center gap-0.5 transition-all duration-300 ease-in-out hover:gap-1.5"
-        >View full resume <Icon name="arrow-up-right" /></CustomLink
+      <ViewMoreButton href="/resume.pdf" target="_blank"
+        >View full resume</ViewMoreButton
       >
     </div>
     <Works

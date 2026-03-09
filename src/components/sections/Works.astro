@@ -7,11 +7,10 @@ import { FundraisingCampaigns } from "@/components/sections/FundraisingCampaigns
 import PressReleases from "@/components/sections/PressReleases.astro";
 import RadioScripts from "@/components/sections/RadioScripts.astro";
 import type { CollectionEntry } from "astro:content";
-import CustomLink from "../CustomLink.astro";
-import { Icon } from "astro-icon/components";
+import type { ArticlesProps } from "./types";
 
 interface Props extends HTMLAttributes<"section"> {
-  articles: CollectionEntry<"article">[];
+  articles: ArticlesProps[];
   socialMediaContents: CollectionEntry<"socialMediaContent">[];
   fundraisingCampaigns: CollectionEntry<"fundraisingCampaign">[];
   pressReleases: CollectionEntry<"pressRelease">[];
@@ -35,7 +34,6 @@ const {
 >
   <h2 class="text-xl font-semibold">Selected Works</h2>
   <div class="flex flex-col space-y-12">
-    <Articles articles={articles} viewMoreButton />
     <SocialMediaContents
       socialMediaContents={socialMediaContents}
       viewMoreButton
@@ -44,6 +42,7 @@ const {
       fundraisingCampaigns={fundraisingCampaigns}
       viewMoreButton
     />
+    <Articles articles={articles} viewMoreButton />
     <PressReleases pressReleases={pressReleases} viewMoreButton />
     <RadioScripts />
   </div>

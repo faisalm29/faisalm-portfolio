@@ -2,10 +2,27 @@ import { defineCollection, type ImageFunction } from "astro:content";
 import { file, glob } from "astro/loaders";
 import { z } from "astro/zod";
 
-const article = defineCollection({
+// const article = defineCollection({
+//   loader: glob({
+//     pattern: "**/index.{md,mdx}",
+//     base: "./src/data/article",
+//   }),
+//   schema: ({ image }) =>
+//     z.object({
+//       title: z.string(),
+//       description: z.string(),
+//       publishedDate: z.coerce.date(),
+//       categories: z.array(z.string()),
+//       source: z.string(),
+//       thumbnail: image().optional(),
+//       draft: z.boolean().default(false),
+//     }),
+// });
+
+const doCheckArticle = defineCollection({
   loader: glob({
     pattern: "**/index.{md,mdx}",
-    base: "./src/data/article",
+    base: "./src/data/articles/docheck",
   }),
   schema: ({ image }) =>
     z.object({
@@ -18,45 +35,91 @@ const article = defineCollection({
       draft: z.boolean().default(false),
     }),
 });
+
+const ibmArticle = defineCollection({
+  loader: file("./src/data/articles/ibm/index.json"),
+  schema: z.object({
+    id: z.string(),
+    draft: z.boolean().default(false),
+    title: z.string(),
+    description: z.string(),
+    publishedDate: z.coerce.date(),
+    source: z.object({
+      name: z.string(),
+      url: z.string(),
+    }),
+  }),
+});
+
+// use this schema for in site fundraising campaigns
+// const fundraisingCampaign = defineCollection({
+//   loader: glob({
+//     pattern: "**/index.{md,mdx}",
+//     base: "./src/data/fundraising-campaign",
+//   }),
+//   schema: ({ image }) =>
+//     z.object({
+//       title: z.string(),
+//       description: z.string(),
+//       publishedDate: z.coerce.date(),
+//       categories: z.array(z.string()),
+//       source: z.string(),
+//       thumbnail: image().optional(),
+//       totalDonation: z.string(),
+//       draft: z.boolean().default(false),
+//     }),
+// });
 
 const fundraisingCampaign = defineCollection({
-  loader: glob({
-    pattern: "**/index.{md,mdx}",
-    base: "./src/data/fundraising-campaign",
+  loader: file("./src/data/fundraising-campaigns/index.json"),
+  schema: z.object({
+    id: z.string(),
+    draft: z.boolean().default(false),
+    title: z.string(),
+    totalDonation: z.string(),
+    publishedDate: z.coerce.date(),
+    url: z.string(),
   }),
-  schema: ({ image }) =>
-    z.object({
-      title: z.string(),
-      description: z.string(),
-      publishedDate: z.coerce.date(),
-      categories: z.array(z.string()),
-      source: z.string(),
-      thumbnail: image().optional(),
-      totalDonation: z.string(),
-      draft: z.boolean().default(false),
-    }),
 });
 
+// use this schema for in site press releases
+// const pressRelease = defineCollection({
+//   loader: glob({
+//     pattern: "**/index.{md,mdx}",
+//     base: "./src/data/press-release",
+//   }),
+//   schema: ({ image }: { image: ImageFunction }) =>
+//     z.object({
+//       title: z.string(),
+//       description: z.string(),
+//       publishedDate: z.coerce.date(),
+//       categories: z.array(z.string()),
+//       publishedIn: z.array(
+//         z.object({
+//           name: z.string(),
+//           url: z.string(),
+//         }),
+//       ),
+//       thumbnail: image().optional(),
+//       draft: z.boolean().default(false),
+//     }),
+// });
+
 const pressRelease = defineCollection({
-  loader: glob({
-    pattern: "**/index.{md,mdx}",
-    base: "./src/data/press-release",
+  loader: file("./src/data/press-releases/index.json"),
+  schema: z.object({
+    id: z.string(),
+    draft: z.boolean().default(false),
+    thumbnail: z.string().optional(),
+    title: z.string(),
+    company: z.string(),
+    releaseAt: z.array(
+      z.object({
+        name: z.string(),
+        href: z.string(),
+      }),
+    ),
   }),
-  schema: ({ image }: { image: ImageFunction }) =>
-    z.object({
-      title: z.string(),
-      description: z.string(),
-      publishedDate: z.coerce.date(),
-      categories: z.array(z.string()),
-      publishedIn: z.array(
-        z.object({
-          name: z.string(),
-          url: z.string(),
-        }),
-      ),
-      thumbnail: image().optional(),
-      draft: z.boolean().default(false),
-    }),
 });
 
 const socialMediaContent = defineCollection({
@@ -135,7 +198,8 @@ const skills = defineCollection({
 });
 
 export const collections = {
-  article,
+  doCheckArticle,
+  ibmArticle,
   fundraisingCampaign,
   pressRelease,
   socialMediaContent,

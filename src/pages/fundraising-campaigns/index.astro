@@ -3,7 +3,9 @@ import { getCollection } from "astro:content";
 import ArticleLayout from "@/layouts/ArticleLayout.astro";
 import { FundraisingCampaigns } from "@/components/sections/FundraisingCampaigns";
 
-const fundraisingCampaigns = await getCollection("fundraisingCampaign");
+const fundraisingCampaigns = (await getCollection("fundraisingCampaign")).sort(
+  (a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf(),
+);
 
 const pageSize = 10;
 const firstPageFundraisingCampaigns = fundraisingCampaigns.slice(0, pageSize);
@@ -14,6 +16,12 @@ const totalPages = Math.ceil(fundraisingCampaigns.length / pageSize);
   <FundraisingCampaigns fundraisingCampaigns={firstPageFundraisingCampaigns} />
   <nav class="flex items-center justify-center gap-2">
     {fundraisingCampaigns.length > pageSize && <span>1</span>}
-    {totalPages > 1 && <a href="/articles/2">Next</a>}
+    {
+      totalPages > 1 && (
+        <a href="/fundraising-campaigns/2" class="next">
+          Next
+        </a>
+      )
+    }
   </nav>
 </ArticleLayout>

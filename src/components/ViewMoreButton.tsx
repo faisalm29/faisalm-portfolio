@@ -1,41 +1,43 @@
 import { cn } from "@/lib/utils";
-import { cva, type VariantProps } from "class-variance-authority";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import type { ComponentProps } from "react";
-import type React from "react";
 
-const viewMoreButtonVariants = cva("", {
-  variants: {
-    variant: {
-      primary:
-        "text-foreground decoration-foreground/30 hover:decoration-muted-foreground",
-      secondary:
-        "text-muted-foreground decoration-foreground/30 hover:decoration-muted-foreground hover:text-foreground",
-      muted:
-        "text-foreground/30 hover:decoration-muted-foreground hover:text-muted-foreground",
-    },
-  },
-  defaultVariants: {
-    variant: "primary",
-  },
-});
+interface Props extends Omit<ComponentProps<"a">, "href"> {
+  href: string;
+  children: React.ReactNode;
+}
 
-export interface ViewMoreButtonProps
-  extends ComponentProps<"a">, VariantProps<typeof viewMoreButtonVariants> {}
-
-const ViewMoreButton: React.FC<ViewMoreButtonProps> = ({
-  className,
-  variant = "primary",
-  href,
+const ViewMoreButton = ({
   children,
+  href,
+  target = "_self",
+  className,
   ...props
-}) => {
+}: Props) => {
   return (
     <a
       {...props}
       href={href}
-      className={cn(viewMoreButtonVariants({ variant, className }))}
+      target={target}
+      className={cn(
+        "border-border group block h-20 rounded-md border border-dashed p-3",
+        className,
+      )}
     >
-      {children}
+      <div className="bg-muted/50 text-muted-foreground group-hover:text-foreground group-hover:bg-muted flex h-full items-center justify-center rounded-sm transition-all duration-300 ease-in-out">
+        <span>{children}</span>
+        {target === "_self" ? (
+          <ArrowRight
+            size={16}
+            className="ml-1 transition-all duration-300 ease-in-out group-hover:translate-x-1"
+          />
+        ) : (
+          <ArrowUpRight
+            size={16}
+            className="ml-1 transition-all duration-300 ease-in-out group-hover:translate-x-1"
+          />
+        )}
+      </div>
     </a>
   );
 };

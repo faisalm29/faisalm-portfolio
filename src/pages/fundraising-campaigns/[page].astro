@@ -1,17 +1,19 @@
 ---
-import { FundraisingCampaignItem } from "@/components/FundraisingCampaignItem";
 import { FundraisingCampaigns } from "@/components/sections/FundraisingCampaigns";
 import ArticleLayout from "@/layouts/ArticleLayout.astro";
 import type { PaginateFunction } from "astro";
 import { getCollection } from "astro:content";
-import { date } from "astro:schema";
 
 interface PaginateProps {
   paginate: PaginateFunction;
 }
 
 export const getStaticPaths = async ({ paginate }: PaginateProps) => {
-  const fundraisingCampaigns = await getCollection("fundraisingCampaign");
+  const fundraisingCampaigns = (
+    await getCollection("fundraisingCampaign")
+  ).sort(
+    (a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf(),
+  );
 
   return paginate(fundraisingCampaigns, {
     pageSize: 10,
@@ -28,13 +30,19 @@ const { currentPage, data, lastPage, total, url } = page;
     <nav class="flex items-center justify-center gap-2">
       {
         url.first && currentPage > 2 && (
-          <a href="/social-media-contents">First</a>
+          <a href="/fundraising-campaigns">First</a>
         )
       }
       {url.prev && <a href={url.prev}>Previous</a>}
       {total > 1 && <span>{currentPage}</span>}
-      {url.next && currentPage < lastPage && <a href={url.next}>Next</a>}
-      {url.last && <a href={url.last}>Last</a>}
+      {url.next && currentPage < lastPage - 1 && <a href={url.next}>Next</a>}
+      {
+        url.last && (
+          <a href={url.last} class="next">
+            Last
+          </a>
+        )
+      }
     </nav>
   </section>
 </ArticleLayout>

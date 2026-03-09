@@ -1,9 +1,9 @@
 import { ArticleItem } from "../ArticleItem";
-import type { CollectionEntry } from "astro:content";
 import { ViewMoreButton } from "../ViewMoreButton";
+import type { ArticlesProps } from "./types";
 
 interface Props {
-  articles: CollectionEntry<"article">[];
+  articles: ArticlesProps[];
   viewMoreButton?: boolean;
 }
 
@@ -24,7 +24,7 @@ const Articles = ({ articles, viewMoreButton = false }: Props) => {
           </li>
         ))}
         {viewMoreButton && (
-          <ViewMoreButton href="/articles">See More</ViewMoreButton>
+          <ViewMoreButton href="/articles">View more</ViewMoreButton>
         )}
       </ul>
     </section>

@@ -7,4 +7,7 @@ type Props = RemoteImageProps;
 const { src, alt, ...props } = Astro.props;
 ---
 
-<Image src={src} alt={alt} {...props} inferSize class="rounded-md" />
+<div class="flex justify-center">
+  {src ? (<Image src={src} alt={alt} {...props} inferSize class="rounded-md" />) : <></>}
+  
+</div>

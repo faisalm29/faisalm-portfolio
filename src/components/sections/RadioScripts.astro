@@ -2,17 +2,16 @@
 import { cn } from "@/lib/utils";
 import type { HTMLAttributes } from "astro/types";
 import CustomLink from "../CustomLink.astro";
+import { ViewMoreButton } from "../ViewMoreButton";
 
 interface Props extends HTMLAttributes<"section"> {}
 
 const { class: className, ...props } = Astro.props;
 ---
 
-<section {...props} class={cn("flex", className)}>
-  <h2 class="text-foreground">
-    I also wrote radio scripts. See the archive <CustomLink
-      href="/radio-scripts.pdf"
-      target="_blank">here</CustomLink
-    >.
-  </h2>
+<section {...props} class={cn("flex flex-col space-y-4", className)}>
+  <h2 class="text-lg font-semibold">Radio Scripts</h2>
+  <ViewMoreButton href="/radio-scripts.pdf" target="_blank"
+    >View radio script archives</ViewMoreButton
+  >
 </section>

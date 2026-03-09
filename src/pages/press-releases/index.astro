@@ -14,6 +14,6 @@ const totalPages = Math.ceil(pressReleases.length / pageSize);
   <PressReleases pressReleases={firstPagePressReleases} />
   <nav class="flex items-center justify-center gap-2">
     {pressReleases.length > pageSize && <span>1</span>}
-    {totalPages > 1 && <a href="/articles/2">Next</a>}
+    {totalPages > 1 && <a href="/press-releases/2">Next</a>}
   </nav>
 </ArticleLayout>

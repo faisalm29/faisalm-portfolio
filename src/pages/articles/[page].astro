@@ -1,15 +1,15 @@
 ---
 import { Articles } from "@/components/sections/Articles";
 import ArticleLayout from "@/layouts/ArticleLayout.astro";
+import { getAllArticles, sortArticles } from "@/lib/utils";
 import type { PaginateFunction } from "astro";
-import { getCollection } from "astro:content";
 
 interface PaginateProps {
   paginate: PaginateFunction;
 }
 
 export const getStaticPaths = async ({ paginate }: PaginateProps) => {
-  const articles = await getCollection("article");
+  const articles = sortArticles(await getAllArticles());
 
   return paginate(articles, {
     pageSize: 10,
@@ -18,6 +18,7 @@ export const getStaticPaths = async ({ paginate }: PaginateProps) => {
 
 const { page } = Astro.props;
 const { currentPage, data, lastPage, total, url } = page;
+console.log(lastPage, currentPage);
 ---
 
 <ArticleLayout>
@@ -25,14 +26,10 @@ const { currentPage, data, lastPage, total, url } = page;
     <Articles articles={data} />
 
     <nav class="flex items-center justify-center gap-2">
-      {
-        url.first && currentPage > 2 && (
-          <a href="/social-media-contents">First</a>
-        )
-      }
+      {url.first && currentPage > 2 && <a href="/articles">First</a>}
       {url.prev && <a href={url.prev}>Previous</a>}
       {total > 1 && <span>{currentPage}</span>}
-      {url.next && currentPage < lastPage && <a href={url.next}>Next</a>}
+      {url.next && currentPage < lastPage - 1 && <a href={url.next}>Next</a>}
       {url.last && <a href={url.last}>Last</a>}
     </nav>
   </section>
