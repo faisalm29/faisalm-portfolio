@@ -6,7 +6,11 @@ import ogImage from "../../public/og-default.jpg";
 
 interface Props extends SEOProps {}
 
-const { title, description = "Default description", openGraph } = Astro.props;
+const {
+  title,
+  description = "Faisal Muhammad's portfolio.",
+  openGraph,
+} = Astro.props;
 
 const defaultOgImage = await getImage({
   src: ogImage,

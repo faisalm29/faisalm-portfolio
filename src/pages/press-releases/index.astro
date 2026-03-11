@@ -1,19 +1,75 @@
 ---
+import { Badge } from "@/components/Badge";
+import { Button } from "@/components/Button";
 import PressReleases from "@/components/sections/PressReleases.astro";
 import ArticleLayout from "@/layouts/ArticleLayout.astro";
+import { Icon } from "astro-icon/components";
 import { getCollection } from "astro:content";
+import { getImage } from "astro:assets";
+import defaultOg from "../../../public/og-press-release-default.jpg";
 
 const pressReleases = await getCollection("pressRelease");
 
 const pageSize = 10;
 const firstPagePressReleases = pressReleases.slice(0, pageSize);
 const totalPages = Math.ceil(pressReleases.length / pageSize);
+
+const defaultOgImage = await getImage({
+  src: defaultOg,
+  format: "jpeg",
+});
+
+const ogImageURL = new URL(defaultOgImage.src, Astro.url.origin).href;
 ---
 
-<ArticleLayout>
-  <PressReleases pressReleases={firstPagePressReleases} />
-  <nav class="flex items-center justify-center gap-2">
-    {pressReleases.length > pageSize && <span>1</span>}
-    {totalPages > 1 && <a href="/press-releases/2">Next</a>}
-  </nav>
+<ArticleLayout
+  title="Press Releases"
+  description="Press release archives."
+  openGraph={{
+    basic: {
+      image: ogImageURL,
+      title: "Press Releases",
+      type: "website",
+    },
+  }}
+>
+  <section class="flex flex-col space-y-4">
+    <div>
+      <Button variant="outline" as="a" href="/" className="group"
+        ><Icon
+          name="arrow-left"
+          class="mr-1 transition-all duration-300 ease-in-out group-hover:-translate-x-1.5"
+        />Back</Button
+      >
+    </div>
+    <PressReleases pressReleases={firstPagePressReleases} />
+    <nav class="flex items-center justify-center gap-2">
+      {
+        pressReleases.length > pageSize && (
+          <Badge variant="outline" size="sm">
+            1
+          </Badge>
+        )
+      }
+      {
+        totalPages > 1 && (
+          <Button as="a" variant="outline" size="sm" href="/press-releases/2">
+            Next
+          </Button>
+        )
+      }
+      {
+        totalPages > 1 && (
+          <Button
+            as="a"
+            variant="outline"
+            size="sm"
+            href={`/press-releases/${String(totalPages)}`}
+          >
+            Last
+          </Button>
+        )
+      }
+    </nav>
+  </section>
 </ArticleLayout>

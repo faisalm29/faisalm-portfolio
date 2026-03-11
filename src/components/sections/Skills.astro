@@ -16,7 +16,7 @@ const { skills, class: className, ...props } = Astro.props;
     {
       skills.map((skill) => (
         <li>
-          <Badge>{skill.data.name}</Badge>
+          <Badge variant="outline">{skill.data.name}</Badge>
         </li>
       ))
     }

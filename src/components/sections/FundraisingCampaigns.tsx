@@ -1,7 +1,7 @@
 import { FundraisingCampaignItem } from "../FundraisingCampaignItem";
 import type { CollectionEntry } from "astro:content";
 import { ViewMoreButton } from "../ViewMoreButton";
-import CustomLink from "../CustomLink.astro";
+import { CustomLink } from "../CustomLink";
 
 interface Props {
   fundraisingCampaigns: CollectionEntry<"fundraisingCampaign">[];
@@ -17,12 +17,12 @@ const FundraisingCampaigns = ({
       <h2 className="text-lg font-semibold">Fundraising Campaigns</h2>
       <p>
         I managed to raise{" "}
-        <span className="text-foreground font-semibold">Rp2,670,347,756</span>{" "}
-        in total from 99 fundraising campaigns that I wrote over 9 months. Click{" "}
+        <span className="text-foreground">Rp2,670,347,756</span> in total from
+        99 fundraising campaigns that I wrote over 9 months. Click{" "}
         <CustomLink href="https://1drv.ms/x/c/769432b423d54538/EVue8HsM8yFBku2KDG9svq8BbllN77J7FMJfG4UqlVZWPA?e=m2wbnq">
           here
         </CustomLink>{" "}
-        to view the full list of my fundraising campaigns and their details.
+        to view the list of my fundraising campaigns and their details.
       </p>
       <ul className="flex flex-col space-y-4">
         {fundraisingCampaigns.map((fundraisingCampaign) => (

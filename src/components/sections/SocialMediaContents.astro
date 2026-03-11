@@ -5,6 +5,7 @@ import type { CollectionEntry } from "astro:content";
 import InstagramContentFrame from "../InstagramContentFrame.astro";
 import InstagramContentFrameCaption from "../InstagramContentFrameCaption.astro";
 import { ViewMoreButton } from "../ViewMoreButton";
+import { HighlightedText } from "../HighlightedText";
 
 interface Props extends HTMLAttributes<"section"> {
   socialMediaContents: CollectionEntry<"socialMediaContent">[];
@@ -28,12 +29,23 @@ const currentPathname = Astro.url.pathname;
   >
     Social Media Contents
   </h2>
-  <p>Some description about what impacts I brought.</p>
+  <p>
+    During my time as a Content Writer for The Insan Bumi Mandiri Foundation, I
+    authored <HighlightedText>38</HighlightedText> Social Media Contents that successfully
+    generated <HighlightedText>297,644</HighlightedText>
+    impressions, <HighlightedText>284,237</HighlightedText> reach, <HighlightedText
+      >362</HighlightedText
+    > new followers, <HighlightedText>22,296</HighlightedText> likes, <HighlightedText
+      >225</HighlightedText
+    > comments, <HighlightedText>701</HighlightedText> shares, and <HighlightedText
+      >506</HighlightedText
+    > saves.
+  </p>
   <ul class="flex flex-col gap-4">
     {
       socialMediaContents.map((socialMediaContent) => (
-        <li>
-          {currentPathname === "/social-media-contents" ? (
+        <li class="flex justify-center">
+          {currentPathname !== "/" ? (
             <InstagramContentFrameCaption
               contentId={socialMediaContent.data.id}
             />

@@ -3,7 +3,7 @@ import type { HTMLAttributes } from "astro/types";
 import type { CollectionEntry } from "astro:content";
 import { cn } from "@/lib/utils";
 import { Icon } from "astro-icon/components";
-import CustomLink from "./CustomLink.astro";
+import { CustomLink } from "./CustomLink";
 
 interface Props extends HTMLAttributes<"li"> {
   certification: CollectionEntry<"certifications">;

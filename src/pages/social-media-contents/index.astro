@@ -2,24 +2,78 @@
 import SocialMediaContents from "@/components/sections/SocialMediaContents.astro";
 import ArticleLayout from "@/layouts/ArticleLayout.astro";
 import { getCollection } from "astro:content";
+import { Button } from "@/components/Button";
+import { Badge } from "@/components/Badge";
+import { Icon } from "astro-icon/components";
+import { getImage } from "astro:assets";
+import defaultOg from "../../../public/og-social-media-content-default.jpg";
 
 const socialMediaContents = await getCollection("socialMediaContent");
 
 const pageSize = 5;
 const firstPageContents = socialMediaContents.slice(0, pageSize);
 const totalPages = Math.ceil(socialMediaContents.length / pageSize);
+
+const defaultOgImage = await getImage({
+  src: defaultOg,
+  format: "jpeg",
+});
+
+const ogImageURL = new URL(defaultOgImage.src, Astro.url.origin).href;
 ---
 
-<ArticleLayout>
-  <section>
+<ArticleLayout
+  title="Social Media Contents"
+  description="Social media content archives."
+  openGraph={{
+    basic: {
+      image: ogImageURL,
+      title: "Social Media Contents",
+      type: "website",
+    },
+  }}
+>
+  <section class="flex flex-col space-y-4">
+    <div>
+      <Button variant="outline" as="a" href="/" className="group"
+        ><Icon
+          name="arrow-left"
+          class="mr-1 transition-all duration-300 ease-in-out group-hover:-translate-x-1.5"
+        />Back</Button
+      >
+    </div>
     <SocialMediaContents socialMediaContents={firstPageContents} />
 
     <nav class="flex items-center justify-center gap-2">
-      {socialMediaContents.length > pageSize && <span>1</span>}
-      {totalPages > 1 && <a href="/social-media-contents/2">Next</a>}
+      {
+        socialMediaContents.length > pageSize && (
+          <Badge variant="outline" size="sm">
+            1
+          </Badge>
+        )
+      }
       {
         totalPages > 1 && (
-          <a href={`/social-media-contents/${String(totalPages)}`}>Last</a>
+          <Button
+            as="a"
+            variant="outline"
+            size="sm"
+            href="/social-media-contents/2"
+          >
+            Next
+          </Button>
+        )
+      }
+      {
+        totalPages > 1 && (
+          <Button
+            as="a"
+            variant="outline"
+            size="sm"
+            href={`/social-media-contents/${String(totalPages)}`}
+          >
+            Last
+          </Button>
         )
       }
     </nav>

@@ -4,7 +4,7 @@ import type { HTMLAttributes } from "astro/types";
 import { cn } from "@/lib/utils";
 import { Image } from "astro:assets";
 import { Badge } from "./ui/badge";
-import CustomLink from "./CustomLink.astro";
+import { CustomLink } from "./CustomLink";
 import { Icon } from "astro-icon/components";
 
 interface Props extends HTMLAttributes<"div"> {
@@ -28,7 +28,7 @@ const { project, class: className, ...props } = Astro.props;
     {
       project.data.url ? (
         <h2>
-          <CustomLink href={project.data.url} class="group">
+          <CustomLink href={project.data.url} className="group">
             {project.data.name}
             <Icon
               name="arrow-up-right"

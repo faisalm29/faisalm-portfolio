@@ -4,7 +4,7 @@ import type { HTMLAttributes } from "astro/types";
 import type { CollectionEntry } from "astro:content";
 import { cn } from "@/lib/utils";
 import { Badge } from "./ui/badge";
-import CustomLink from "@/components/CustomLink.astro";
+import { CustomLink } from "./CustomLink";
 
 interface Props extends HTMLAttributes<"div"> {
   workExperience: CollectionEntry<"workExperience">;
@@ -31,7 +31,7 @@ const { company, description, endDate, role, skills, startDate, url } =
         <h2 class="w-fit">
           <CustomLink
             href={url}
-            class="flex items-center gap-0.5 font-medium transition-all duration-300 ease-in-out hover:gap-1.5"
+            className="flex items-center gap-0.5 font-medium transition-all duration-300 ease-in-out hover:gap-1.5"
           >
             {role} • {company}
             <Icon name="arrow-up-right" />

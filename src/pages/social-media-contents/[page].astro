@@ -3,6 +3,11 @@ import SocialMediaContents from "@/components/sections/SocialMediaContents.astro
 import ArticleLayout from "@/layouts/ArticleLayout.astro";
 import type { PaginateFunction } from "astro";
 import { getCollection } from "astro:content";
+import { Button } from "@/components/Button";
+import { Badge } from "@/components/Badge";
+import { Icon } from "astro-icon/components";
+import { getImage } from "astro:assets";
+import defaultOg from "../../../public/og-social-media-content-default.jpg";
 
 interface PaginateProps {
   paginate: PaginateFunction;
@@ -18,22 +23,78 @@ export const getStaticPaths = async ({ paginate }: PaginateProps) => {
 
 const { page } = Astro.props;
 const { currentPage, data, lastPage, total, url } = page;
+
+const defaultOgImage = await getImage({
+  src: defaultOg,
+  format: "jpeg",
+});
+
+const ogImageURL = new URL(defaultOgImage.src, Astro.url.origin).href;
 ---
 
-<ArticleLayout>
-  <section>
+<ArticleLayout
+  title="Social Media Contents"
+  description="Social media content archives."
+  openGraph={{
+    basic: {
+      image: ogImageURL,
+      title: "Social Media Contents",
+      type: "website",
+    },
+  }}
+>
+  <section class="flex flex-col space-y-4">
+    <div>
+      <Button variant="outline" as="a" href="/" className="group"
+        ><Icon
+          name="arrow-left"
+          class="mr-1 transition-all duration-300 ease-in-out group-hover:-translate-x-1.5"
+        />Back</Button
+      >
+    </div>
     <SocialMediaContents socialMediaContents={data} />
 
     <nav class="flex items-center justify-center gap-2">
       {
         url.first && currentPage > 2 && (
-          <a href="/social-media-contents">First</a>
+          <Button
+            as="a"
+            href="/social-media-contents"
+            variant="outline"
+            size="sm"
+          >
+            First
+          </Button>
         )
       }
-      {url.prev && <a href={url.prev}>Previous</a>}
-      {total > 1 && <span>{currentPage}</span>}
-      {url.next && currentPage < lastPage - 1 && <a href={url.next}>Next</a>}
-      {url.last && <a href={url.last}>Last</a>}
+      {
+        url.prev && (
+          <Button as="a" href={url.prev} variant="outline" size="sm">
+            Prev
+          </Button>
+        )
+      }
+      {
+        total > 1 && (
+          <Badge variant="outline" size="sm">
+            {currentPage}
+          </Badge>
+        )
+      }
+      {
+        url.next && currentPage < lastPage - 1 && (
+          <Button as="a" href={url.next} variant="outline" size="sm">
+            Next
+          </Button>
+        )
+      }
+      {
+        url.last && (
+          <Button as="a" href={url.last} variant="outline" size="sm">
+            Last
+          </Button>
+        )
+      }
     </nav>
   </section>
 </ArticleLayout>

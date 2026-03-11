@@ -5,7 +5,7 @@ import { Image } from "astro:assets";
 import { formatDate } from "@/lib/utils";
 import { Icon } from "astro-icon/components";
 import { getImage } from "astro:assets";
-import CustomLink from "@/components/CustomLink.astro";
+import { CustomLink } from "@/components/CustomLink";
 import ImageContainer from "@/components/mdx/ImageContainer.astro";
 
 export const getStaticPaths = async () => {
@@ -61,8 +61,8 @@ if (article.data.thumbnail) {
     <div class="flex flex-col space-y-8">
       {
         thumbnail && (
-          <Image
-            src={thumbnail}
+          <img
+            src={thumbnail.src}
             alt={`${title}'s movie poster`}
             sizes="100vw"
             width={200}
@@ -79,7 +79,7 @@ if (article.data.thumbnail) {
             <p>
               This article was originally published on <CustomLink
                 href={source}
-                class="inline-flex items-center gap-1"
+                className="inline-flex items-center gap-1"
                 >DoCheck<Icon name="arrow-up-right" /></CustomLink
               >
             </p>

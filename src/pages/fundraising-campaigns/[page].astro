@@ -1,8 +1,13 @@
 ---
+import { Badge } from "@/components/Badge";
+import { Button } from "@/components/Button";
 import { FundraisingCampaigns } from "@/components/sections/FundraisingCampaigns";
 import ArticleLayout from "@/layouts/ArticleLayout.astro";
 import type { PaginateFunction } from "astro";
+import { Icon } from "astro-icon/components";
 import { getCollection } from "astro:content";
+import { getImage } from "astro:assets";
+import defaultOg from "../../../public/og-fundraising-campaign-default.jpg";
 
 interface PaginateProps {
   paginate: PaginateFunction;
@@ -22,25 +27,75 @@ export const getStaticPaths = async ({ paginate }: PaginateProps) => {
 
 const { page } = Astro.props;
 const { currentPage, data, lastPage, total, url } = page;
+
+const defaultOgImage = await getImage({
+  src: defaultOg,
+  format: "jpeg",
+});
+
+const ogImageURL = new URL(defaultOgImage.src, Astro.url.origin).href;
 ---
 
-<ArticleLayout>
-  <section>
+<ArticleLayout
+  title="Fundraising Campaigns"
+  description="Fundraising campaign archives."
+  openGraph={{
+    basic: {
+      image: ogImageURL,
+      title: "Fundraising Campaigns",
+      type: "website",
+    },
+  }}
+>
+  <section class="flex flex-col space-y-4">
+    <div>
+      <Button variant="outline" as="a" href="/" className="group"
+        ><Icon
+          name="arrow-left"
+          class="mr-1 transition-all duration-300 ease-in-out group-hover:-translate-x-1.5"
+        />Back</Button
+      >
+    </div>
     <FundraisingCampaigns fundraisingCampaigns={data} />
     <nav class="flex items-center justify-center gap-2">
       {
         url.first && currentPage > 2 && (
-          <a href="/fundraising-campaigns">First</a>
+          <Button
+            as="a"
+            href="/fundraising-campaigns"
+            variant="outline"
+            size="sm"
+          >
+            First
+          </Button>
         )
       }
-      {url.prev && <a href={url.prev}>Previous</a>}
-      {total > 1 && <span>{currentPage}</span>}
-      {url.next && currentPage < lastPage - 1 && <a href={url.next}>Next</a>}
+      {
+        url.prev && (
+          <Button as="a" href={url.prev} variant="outline" size="sm">
+            Prev
+          </Button>
+        )
+      }
+      {
+        total > 1 && (
+          <Badge variant="outline" size="sm">
+            {currentPage}
+          </Badge>
+        )
+      }
+      {
+        url.next && currentPage < lastPage - 1 && (
+          <Button as="a" href={url.next} variant="outline" size="sm">
+            Next
+          </Button>
+        )
+      }
       {
         url.last && (
-          <a href={url.last} class="next">
+          <Button as="a" href={url.last} variant="outline" size="sm">
             Last
-          </a>
+          </Button>
         )
       }
     </nav>

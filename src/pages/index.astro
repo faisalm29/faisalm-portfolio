@@ -10,8 +10,6 @@ import Education from "@/components/sections/Education.astro";
 import Certifications from "@/components/sections/Certifications.astro";
 import { getCollection } from "astro:content";
 import Works from "@/components/sections/Works.astro";
-import CustomLink from "@/components/CustomLink.astro";
-import { Icon } from "astro-icon/components";
 import { getAllArticles, sortPosts, sortArticles } from "@/lib/utils";
 import { ViewMoreButton } from "@/components/ViewMoreButton";
 
@@ -31,7 +29,7 @@ const pressReleases = (await getCollection("pressRelease")).slice(0, 5);
 const articles = sortArticles(await getAllArticles()).slice(0, 5);
 ---
 
-<MainLayout>
+<MainLayout title="Portfolio">
   <div
     class="flex flex-col space-y-12 lg:sticky lg:top-0 lg:max-h-screen lg:w-[42%] lg:py-18"
   >
