@@ -5,9 +5,10 @@
     "endDate": "Oct 2023",
     "role": "Content Writer",
     "company": "Insan Bumi Mandiri",
-    "description": "As a high-impact Content Writer and Strategist, I spearheaded the digital fundraising efforts by crafting over 90 compelling campaigns that successfully secured more than Rp2.6 billion in donations. I effectively managed the brand's public narrative by authoring 15+ press releases and 30+ comprehensive blog articles on diverse topics including health and community empowerment. Additionally, I drove audience engagement through the creation of 80+ dynamic social media assets for Instagram and TikTok, ranging from educational carousels to viral reels.",
+    "description": "As a high-impact Content Writer, I spearheaded the digital fundraising efforts by crafting over 90 compelling campaigns that successfully secured more than Rp2.6 billion in donations. I effectively managed the brand's public narrative by authoring 15+ press releases and 30+ comprehensive blog articles on diverse topics including health and community empowerment. Additionally, I drove audience engagement through the creation of 80+ dynamic social media assets for Instagram and TikTok, ranging from educational carousels to broadly reach reels.",
     "skills": [
       "Content writing",
+      "Copywriting",
       "Campaign writing",
       "Social media management"
     ],
@@ -19,8 +20,8 @@
     "endDate": "Mar 2022",
     "role": "Content Writer Intern",
     "company": "DoCheck Bagi Indonesia",
-    "description": "In this role, I served as a core contributor to the platform’s content ecosystem, producing 40+ productivity-focused blog articles and 10+ high-engagement Twitter threads. I was responsible for the strategic development of monthly content calendars across Instagram, Twitter, and the company blog to ensure consistent brand messaging. Furthermore, I expanded the brand's reach by contributing as a featured writer for the monthly digital publication, DoZine.",
-    "skills": ["Article writing", "Copywriting", "Content planning"],
+    "description": "In this role, I served as a core contributor to the platform’s content ecosystem, producing 40+ productivity-focused blog articles and 10+ Twitter threads. I was responsible for the strategic development of monthly content calendars across Instagram, Twitter, and the company blog to ensure consistent brand messaging. Furthermore, I expanded the brand's reach by contributing as a featured writer for the monthly digital publication, DoZine.",
+    "skills": ["Content writing", "Copywriting", "Content planning"],
     "url": "http://docheck.id/"
   },
   {
@@ -29,8 +30,8 @@
     "endDate": "Feb 2020",
     "role": "B Radio Assistant Producer Intern",
     "company": "Ardan Group",
-    "description": "I played a dual role in creative production and market research, notably crafting over 5 engaging broadcast scripts for the FlyOver program that balanced advertiser needs with listener entertainment. My analytical contributions included conducting a comprehensive telesurvey where I gathered data from 70+ respondents to identify radio listener trends and product preferences. I also ensured seamless daily operations by writing news and traffic reports and preparing strategic interview frameworks for high-profile guest segments.",
-    "skills": ["Radio scriptwriting", "Sruvey", "Interviewing"],
+    "description": "I played a dual role in creative production and market research, notably crafting over 5 engaging broadcast scripts for the FlyOver program that balanced advertiser needs with listener entertainment. My analytical contributions included conducting a comprehensive telesurvey where I gathered data from 70+ respondents to identify radio listener trends and product preferences. I also ensured seamless daily operations by writing news and traffic reports and preparing interview for guest segments.",
+    "skills": ["Radio scriptwriting", "Sruvey"],
     "url": "https://ardangroup.fm/"
   },
   {
@@ -39,7 +40,7 @@
     "endDate": "Sep 2019",
     "role": "Field Researcher Intern",
     "company": "Lembaga Ilmu Pengetahuan Indonesia (LIPI)",
-    "description": "Serving as a dedicated Research Assistant, I managed the full lifecycle of data collection and analysis for the LIPI bio-toilet project at Babakan Sinyar Public Elementary School. I developed structured research plans tailored to specific subject profiles and executed rigorous data analysis to evaluate project efficacy. My work culminated in professional presentations where I delivered key findings and data insights directly to LIPI’s senior researchers.",
-    "skills": ["Data collection", "Research planning"]
+    "description": "Serving as a dedicated Research Assistant, I managed the full lifecycle of data collection and analysis for the LIPI bio-toilet project at Babakan Sinyar Public Elementary School. I developed structured research plans tailored to specific subject profiles and executed data analysis to evaluate project efficacy. My work culminated in professional presentations where I delivered key findings and data insights directly to LIPI’s senior researchers.",
+    "skills": ["Data collecting", "Research planning"]
   }
 ]
