@@ -1,7 +1,7 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 import { cn } from "@/lib/utils";
-import { CustomLink } from "../CustomLink";
+import { HighlightedText } from "../HighlightedText";
 
 interface Props extends HTMLAttributes<"section"> {
   description?: string;
@@ -17,13 +17,18 @@ const { class: className, ...props } = Astro.props;
   class={cn("flex flex-col space-y-12 scroll-m-18 mb-24", className)}
 >
   <p>
-    Content Writer with 1 year of experience working in the technology industry
-    and non-governmental organizations. Successfully authored 90+ fundraising
-    campaigns that collectively raised over Rp2.600.000.000+ (<CustomLink
-      href="https://1drv.ms/x/c/769432b423d54538/EVue8HsM8yFBku2KDG9svq8BbllN77J7FMJfG4UqlVZWPA?e=m2wbnq"
-      >see detail</CustomLink
-    >) as a Content Writer for the Insan Bumi Mandiri Foundation. Have attended
-    a digital marketing bootcamp for 3 months to learn digital marketing in more
-    depth. Skilled in content writing/copywriting, SEO, and digital marketing.
+    Content Writer with <HighlightedText>1 year of experience</HighlightedText> working
+    in the technology industry and non-governmental organizations. Successfully authored
+    <HighlightedText>90+</HighlightedText> fundraising campaigns that collectively
+    raised over <HighlightedText>Rp2.600.000.000+</HighlightedText> as a Content Writer
+    for the Insan Bumi Mandiri Foundation. Have attended a <HighlightedText
+      >digital marketing bootcamp</HighlightedText
+    >
+    for 3 months to learn digital marketing in more depth. Skilled in <HighlightedText
+      >content writing/copywriting</HighlightedText
+    >,
+    <HighlightedText>SEO</HighlightedText>, and <HighlightedText
+      >digital marketing</HighlightedText
+    >.
   </p>
 </section>

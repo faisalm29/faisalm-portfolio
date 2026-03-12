@@ -44,7 +44,7 @@ const { project, class: className, ...props } = Astro.props;
     <p class="text-sm leading-relaxed">{project.data.description}</p>
     {
       project.data.skills && (
-        <ul class="flex items-center gap-2">
+        <ul class="flex flex-wrap items-center gap-2">
           {project.data.skills.map((skill) => (
             <Badge variant="secondary">{skill}</Badge>
           ))}

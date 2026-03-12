@@ -45,7 +45,7 @@ const { company, description, endDate, role, skills, startDate, url } =
     }
 
     <p class="text-sm leading-relaxed">{description}</p>
-    <ul class="flex items-center gap-2">
+    <ul class="flex flex-wrap items-center gap-2">
       {skills.map((skill) => <Badge variant="secondary">{skill}</Badge>)}
     </ul>
   </div>

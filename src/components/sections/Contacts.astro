@@ -1,5 +1,6 @@
 ---
 import { Icon } from "astro-icon/components";
+import { TooltipIcon } from "../TooltipIcon";
 
 const contacts = [
   {
@@ -17,7 +18,17 @@ const contacts = [
 
 <section>
   <ul class="flex items-center gap-4">
-    {
+    <TooltipIcon email="faisal.muhammad2911@gmail.com" client:load />
+    <li>
+      <a
+        href="https://www.linkedin.com/in/faisal-muhammad-537741175"
+        target="_blank"
+        class="text-muted-foreground hover:text-foreground transition-all duration-300 ease-in-out"
+      >
+        <Icon name="linkedin" size={24} />
+      </a>
+    </li>
+    <!-- {
       contacts.map((contact) => (
         <li>
           <a
@@ -29,6 +40,6 @@ const contacts = [
           </a>
         </li>
       ))
-    }
+    } -->
   </ul>
 </section>
