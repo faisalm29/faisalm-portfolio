@@ -145,6 +145,6 @@
   }
 
   .active {
-    @apply text-blue-400!;
+    @apply text-primary! ml-0! flex! translate-x-3! font-medium! transition-all! duration-300! ease-in-out!;
   }
 }
