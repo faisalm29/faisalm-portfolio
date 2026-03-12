@@ -16,9 +16,13 @@ export default defineConfig({
   },
   redirects: {
     "/social-media-contents/1": "/social-media-contents",
+    "/social-media-contents/1/": "/social-media-contents",
     "/fundraising-campaigns/1": "/fundraising-campaigns",
+    "/fundraising-campaigns/1/": "/fundraising-campaigns",
     "/articles/1": "/articles",
+    "/articles/1/": "/articles",
     "/press-releases/1": "/press-releases",
+    "/press-releases/1/": "/press-releases",
   },
   vite: {
     plugins: [tailwindcss()],
