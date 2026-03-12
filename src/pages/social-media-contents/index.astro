@@ -8,7 +8,12 @@ import { Icon } from "astro-icon/components";
 import { getImage } from "astro:assets";
 import defaultOg from "../../../public/og-social-media-content-default.jpg";
 
-const socialMediaContents = await getCollection("socialMediaContent");
+const socialMediaContents = await getCollection(
+  "socialMediaContent",
+  ({ data }) => {
+    return import.meta.env.PROD ? data.draft !== true : true;
+  },
+);
 
 const pageSize = 5;
 const firstPageContents = socialMediaContents.slice(0, pageSize);

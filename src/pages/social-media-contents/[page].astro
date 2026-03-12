@@ -14,7 +14,12 @@ interface PaginateProps {
 }
 
 export const getStaticPaths = async ({ paginate }: PaginateProps) => {
-  const socialMediaContents = await getCollection("socialMediaContent");
+  const socialMediaContents = await getCollection(
+    "socialMediaContent",
+    ({ data }) => {
+      return import.meta.env.PROD ? data.draft !== true : true;
+    },
+  );
 
   return paginate(socialMediaContents, {
     pageSize: 5,

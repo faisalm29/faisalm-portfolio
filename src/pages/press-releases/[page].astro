@@ -14,7 +14,9 @@ interface PaginateProps {
 }
 
 export const getStaticPaths = async ({ paginate }: PaginateProps) => {
-  const pressReleases = await getCollection("pressRelease");
+  const pressReleases = await getCollection("pressRelease", ({ data }) => {
+    return import.meta.env.PROD ? data.draft !== true : true;
+  });
 
   return paginate(pressReleases, {
     pageSize: 10,

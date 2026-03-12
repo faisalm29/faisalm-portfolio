@@ -8,7 +8,11 @@ import { Icon } from "astro-icon/components";
 import { getImage } from "astro:assets";
 import defaultOg from "../../../public/og-fundraising-campaign-default.jpg";
 
-const fundraisingCampaigns = (await getCollection("fundraisingCampaign")).sort(
+const fundraisingCampaigns = (
+  await getCollection("fundraisingCampaign", ({ data }) => {
+    return import.meta.env.PROD ? data.draft !== true : true;
+  })
+).sort(
   (a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf(),
 );
 

@@ -13,19 +13,34 @@ import Works from "@/components/sections/Works.astro";
 import { getAllArticles, sortPosts, sortArticles } from "@/lib/utils";
 import { ViewMoreButton } from "@/components/ViewMoreButton";
 
-const allWorkExperience = await getCollection("workExperience");
-const projects = await getCollection("projects");
-const allEducation = await getCollection("education");
-const certifications = await getCollection("certifications");
+const allWorkExperience = await getCollection("workExperience", ({ data }) => {
+  return import.meta.env.PROD ? data.draft !== true : true;
+});
+const projects = await getCollection("projects", ({ data }) => {
+  return import.meta.env.PROD ? data.draft !== true : true;
+});
+const allEducation = await getCollection("education", ({ data }) => {
+  return import.meta.env.PROD ? data.draft !== true : true;
+});
+const certifications = await getCollection("certifications", ({ data }) => {
+  return import.meta.env.PROD ? data.draft !== true : true;
+});
 const skills = await getCollection("skills");
-const socialMediaContents = (await getCollection("socialMediaContent")).slice(
-  0,
-  2,
-);
+const socialMediaContents = (
+  await getCollection("socialMediaContent", ({ data }) => {
+    return import.meta.env.PROD ? data.draft !== true : true;
+  })
+).slice(0, 2);
 const fundraisingCampaigns = sortPosts(
-  await getCollection("fundraisingCampaign"),
+  await getCollection("fundraisingCampaign", ({ data }) => {
+    return import.meta.env.PROD ? data.draft !== true : true;
+  }),
 ).slice(0, 5);
-const pressReleases = (await getCollection("pressRelease")).slice(0, 5);
+const pressReleases = (
+  await getCollection("pressRelease", ({ data }) => {
+    return import.meta.env.PROD ? data.draft !== true : true;
+  })
+).slice(0, 5);
 const articles = sortArticles(await getAllArticles()).slice(0, 5);
 ---
 

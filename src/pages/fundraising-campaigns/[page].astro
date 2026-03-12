@@ -15,7 +15,9 @@ interface PaginateProps {
 
 export const getStaticPaths = async ({ paginate }: PaginateProps) => {
   const fundraisingCampaigns = (
-    await getCollection("fundraisingCampaign")
+    await getCollection("fundraisingCampaign", ({ data }) => {
+      return import.meta.env.PROD ? data.draft !== true : true;
+    })
   ).sort(
     (a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf(),
   );

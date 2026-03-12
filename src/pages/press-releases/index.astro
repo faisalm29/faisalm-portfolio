@@ -8,7 +8,9 @@ import { getCollection } from "astro:content";
 import { getImage } from "astro:assets";
 import defaultOg from "../../../public/og-press-release-default.jpg";
 
-const pressReleases = await getCollection("pressRelease");
+const pressReleases = await getCollection("pressRelease", ({ data }) => {
+  return import.meta.env.PROD ? data.draft !== true : true;
+});
 
 const pageSize = 10;
 const firstPagePressReleases = pressReleases.slice(0, pageSize);
