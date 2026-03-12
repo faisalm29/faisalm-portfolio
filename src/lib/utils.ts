@@ -39,18 +39,24 @@ export const sortArticles = <T extends ArticlePublishedDate>(
 };
 
 export const getAllArticles = async () => {
-  const doCheckArticles = (await getCollection("doCheckArticle")).map(
-    (article) => ({
-      id: article.id,
-      draft: article.data.draft,
-      title: article.data.title,
-      description: article.data.description,
-      publishedDate: article.data.publishedDate,
-      source: article.data.categories[1],
-      url: `/articles/${article.id}`,
-    }),
-  );
-  const ibmArticles = (await getCollection("ibmArticle")).map((article) => ({
+  const doCheckArticles = (
+    await getCollection("doCheckArticle", ({ data }) => {
+      return import.meta.env.PROD ? data.draft !== true : true;
+    })
+  ).map((article) => ({
+    id: article.id,
+    draft: article.data.draft,
+    title: article.data.title,
+    description: article.data.description,
+    publishedDate: article.data.publishedDate,
+    source: article.data.categories[1],
+    url: `/articles/${article.id}`,
+  }));
+  const ibmArticles = (
+    await getCollection("ibmArticle", ({ data }) => {
+      return import.meta.env.PROD ? data.draft !== true : true;
+    })
+  ).map((article) => ({
     id: article.id,
     draft: article.data.draft,
     title: article.data.title,

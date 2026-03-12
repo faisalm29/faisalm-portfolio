@@ -1,13 +1,11 @@
 ---
-import { Image } from "astro:assets";
-import type { RemoteImageProps } from "astro:assets";
+import type { HTMLAttributes } from "astro/types";
 
-type Props = RemoteImageProps;
+interface Props extends HTMLAttributes<"img"> {}
 
-const { src, alt, ...props } = Astro.props;
+const {src, width, height, alt, ...props} = Astro.props
 ---
 
 <div class="flex justify-center">
-  {src ? (<Image src={src} alt={alt} {...props} inferSize class="rounded-md" />) : <></>}
-  
+  {src ? (<img src={src} alt={alt ?? ""} width={width} height={height} style="width: 100%; height: auto;" {...props} class="rounded-md" />) : <></>}
 </div>

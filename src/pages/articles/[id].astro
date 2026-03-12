@@ -7,6 +7,7 @@ import { Icon } from "astro-icon/components";
 import { getImage } from "astro:assets";
 import { CustomLink } from "@/components/CustomLink";
 import ImageContainer from "@/components/mdx/ImageContainer.astro";
+import { MDXComponents } from "@/components/mdx/MDXComponents";
 
 export const getStaticPaths = async () => {
   const articles = await getCollection("doCheckArticle", ({ data }) => {
@@ -99,7 +100,7 @@ if (article.data.thumbnail) {
     <div
       class="prose text-muted-foreground dark:prose-invert max-w-full leading-relaxed text-pretty"
     >
-      <Content components={{ img: ImageContainer }} />
+      <Content components={{ ...MDXComponents }} />
     </div>
   </article>
 </ArticleLayout>
